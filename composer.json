@@ -1,0 +1,18 @@
+{
+	"name": "brownbear/php-transpiler",
+	"description": "Transpiles PHP 5.x into PHP 7 optimized code",
+	"authors": [
+		{
+			"name": "Armin Braun",
+			"email": "me@obrown.io"
+		}
+	],
+	"require": {
+		"symfony/console": "~3.0"
+	},
+	"autoload": {
+		"psr-0": {
+			"PhpTranspiler": "src"
+		}
+	}
+}
