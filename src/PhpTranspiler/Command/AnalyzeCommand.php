@@ -3,7 +3,7 @@ namespace PhpTranspiler\Command;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-class HelloCommand extends Command
+class AnalyzeCommand extends Command
 {
 	protected function configure()
 	{
@@ -16,4 +16,4 @@ class HelloCommand extends Command
 	{
 		$output->writeln('PHP Transpiler');
 	}
-
+}

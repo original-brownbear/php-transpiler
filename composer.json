@@ -8,11 +8,14 @@
 		}
 	],
 	"require": {
-		"symfony/console": "~3.0"
+		"symfony/console": "~2.1"
 	},
 	"autoload": {
 		"psr-0": {
 			"PhpTranspiler": "src"
 		}
+	},
+	"require-dev": {
+		"kherge/box": "^2.6"
 	}
 }
