@@ -4,3 +4,4 @@ php-transpiler.phar
 box.json
 private.key
 php-transpiler.key
+phpunit.xml
