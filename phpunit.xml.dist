@@ -1,7 +1,18 @@
 <phpunit bootstrap="tests/bootstrap.php">
-	<testsuites>
-		<testsuite name="PHP Transpiler Test Suite">
-			<directory prefix="Test" suffix=".php">tests/</directory>
-		</testsuite>
-	</testsuites>
+    <testsuites>
+        <testsuite name="PHP Transpiler Test Suite">
+            <directory prefix="Test" suffix=".php">tests/</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./</directory>
+            <exclude>
+                <directory>./tests/</directory>
+                <directory>./vendor/</directory>
+                <directory>./tmp/</directory>
+                <directory>./build/</directory>
+            </exclude>
+        </whitelist>
+    </filter>
 </phpunit>
