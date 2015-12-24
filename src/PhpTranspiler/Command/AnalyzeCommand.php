@@ -1,6 +1,7 @@
 <?php
 namespace PhpTranspiler\Command;
 
+use PhpTranspiler\Framework\SourceDir;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -23,6 +24,8 @@ class AnalyzeCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('<info>PHP Transpiler</info>');
-        $output->writeln('<info>Analyzing ' . $input->getArgument('path') . '</info>');
+        $path = $input->getArgument('path');
+        $output->writeln('<info>Analyzing ' . $path . '</info>');
+        $source_dir = new SourceDir($path);
     }
 }
