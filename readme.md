@@ -1,3 +1,3 @@
 # PHP Transpiler
 
-... maybe later
+No functionality yet :/
