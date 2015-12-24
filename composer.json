@@ -2,6 +2,7 @@
   "name": "brownbear/php-transpiler",
   "description": "Transpiles PHP 5.x into PHP 7 optimized code",
   "license": "GPL-3.0",
+  "version": "0.0.1-dev",
   "authors": [
     {
       "name": "Armin Braun",
