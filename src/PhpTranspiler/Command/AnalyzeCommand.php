@@ -23,5 +23,6 @@ class AnalyzeCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('<info>PHP Transpiler</info>');
+        $output->writeln('<info>Analyzing ' . $input->getArgument('path') . '</info>');
     }
 }
