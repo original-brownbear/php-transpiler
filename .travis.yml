@@ -6,3 +6,5 @@ script: phpunit -c phpunit.xml.dist --coverage-clover build/logs/clover.xml
 addons:
   code_climate:
     repo_token: dd7e10db6c7c890d50b85dab535df1927caebcc149c81bb7d57da902f8ef851c
+after_script:
+  - CODECLIMATE_REPO_TOKEN=dd7e10db6c7c890d50b85dab535df1927caebcc149c81bb7d57da902f8ef851c ./vendor/bin/test-reporter
