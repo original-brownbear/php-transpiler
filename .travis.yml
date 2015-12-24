@@ -2,4 +2,7 @@ language: php
 php:
   - '7.0'
 install: composer install
-script: phpunit -c phpunit.xml.dist
+script: phpunit -c phpunit.xml.dist --coverage-clover build/logs/clover.xml
+addons:
+  code_climate:
+    repo_token: dd7e10db6c7c890d50b85dab535df1927caebcc149c81bb7d57da902f8ef851c

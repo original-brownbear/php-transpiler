@@ -7,3 +7,5 @@ No functionality yet :/
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.0-8892BF.svg?style=flat-square)](https://php.net/)
 [![Build Status](https://travis-ci.org/original-brownbear/php-transpiler.svg)](https://travis-ci.org/original-brownbear/php-transpiler)
 [![Total Downloads](https://poser.pugx.org/brownbear/php-transpiler/downloads)](https://packagist.org/packages/brownbear/php-transpiler)
+[![Code Climate](https://codeclimate.com/github/original-brownbear/php-transpiler/badges/gpa.svg)](https://codeclimate.com/github/original-brownbear/php-transpiler)
+[![Test Coverage](https://codeclimate.com/github/original-brownbear/php-transpiler/badges/coverage.svg)](https://codeclimate.com/github/original-brownbear/php-transpiler/coverage)

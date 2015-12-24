@@ -21,6 +21,7 @@
   "require-dev": {
     "kherge/box": "^2.6",
     "phpunit/phpunit": "~5.1",
-    "mikey179/vfsStream": "^1.6"
+    "mikey179/vfsStream": "^1.6",
+    "codeclimate/php-test-reporter": "dev-master"
   }
 }

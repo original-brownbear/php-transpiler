@@ -5,3 +5,4 @@ box.json
 private.key
 php-transpiler.key
 phpunit.xml
+/build
