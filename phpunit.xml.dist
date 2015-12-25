@@ -12,6 +12,7 @@
                 <directory>./vendor/</directory>
                 <directory>./tmp/</directory>
                 <directory>./build/</directory>
+                <directory>./src/PhpTranspiler/constants.php</directory>
             </exclude>
         </whitelist>
     </filter>
