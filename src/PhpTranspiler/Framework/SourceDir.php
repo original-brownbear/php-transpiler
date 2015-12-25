@@ -11,12 +11,12 @@ class SourceDir extends SourceLocation
             if (in_array($entry, array('.', '..'), true)) {
                 continue;
             }
-            $file_path = $this->url . '/' . $entry;
-            if (is_file($file_path)) {
-                $files[] = new SourceFile($file_path);
-            } elseif (is_dir($file_path)) {
+            $filePath = $this->url . '/' . $entry;
+            if (is_file($filePath)) {
+                $files[] = new SourceFile($filePath);
+            } elseif (is_dir($filePath)) {
                 $files = array_merge($files,
-                    (new SourceDir($file_path))->getFiles());
+                    (new SourceDir($filePath))->getFiles());
             }
         }
 
