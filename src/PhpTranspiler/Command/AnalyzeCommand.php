@@ -27,7 +27,7 @@ class AnalyzeCommand extends Command
         $output->writeln('<info>PHP Transpiler</info>');
         $path = $input->getArgument('path');
         $output->writeln('<info>Analyzing ' . $path . '</info>');
-        $source_dir = new SourceDir($path);
-        $output->writeln('<info>' . (new SourceDirView($source_dir))->render() . '</info>');
+        $sourceDir = new SourceDir($path);
+        $output->writeln('<info>' . (new SourceDirView($sourceDir))->render() . '</info>');
     }
 }
