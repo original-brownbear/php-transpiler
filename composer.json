@@ -1,6 +1,6 @@
 {
   "name": "brownbear/php-transpiler",
-  "description": "Transpiles PHP 5.x into PHP 7 optimized code",
+  "description": "Transpiles PHP 5.x into PHP 5.6 or PHP 7 optimized code",
   "license": "GPL-3.0",
   "version": "0.0.1-dev",
   "authors": [
@@ -11,7 +11,7 @@
   ],
   "require": {
     "symfony/console": "~2.1",
-    "php": ">=7.0.0"
+    "php": ">=5.6"
   },
   "autoload": {
     "psr-0": {

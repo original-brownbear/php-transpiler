@@ -10,12 +10,16 @@ class AnalyzeCommandTest extends \PHPUnit_Framework_TestCase
     {
         $application = new Application();
         $application->add(new AnalyzeCommand());
+        $source_path = '/src/sources';
+        $path        = vfsStream::setup($source_path);
+        $dir         = vfsStream::newDirectory($source_path);
+        $dir->addChild(vfsStream::newFile('text.php')->at($path));
 
         $command       = $application->find('analyze');
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(
             'command' => $command->getName(),
-            'path'    => '/foo'
+            'path'    => $dir->url()
         ));
         $this->assertRegExp('/PHP/', $commandTester->getDisplay());
     }
@@ -34,12 +38,12 @@ class AnalyzeCommandTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Symfony\Component\Console\Exception\RuntimeException
+     * @expectedException Symfony\Component\Console\Exception\InvalidArgumentException
      */
-    public function testExecuteNoPhpFilesInPath()
+    public function testExecutePathDoesNotExist()
     {
-        $vfs         = vfsStream::setup();
         $source_path = '/src/sources';
+        $vfs         = vfsStream::setup($source_path);
         $dir         = vfsStream::newDirectory($source_path);
         $dir->addChild(vfsStream::newFile('text.txt')->at($vfs));
         $application = new Application();
@@ -49,7 +53,7 @@ class AnalyzeCommandTest extends \PHPUnit_Framework_TestCase
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(
             'command' => $command->getName(),
-            'path'    => $dir->url()
+            'path'    => $dir->url() . '/foo'
         ));
     }
 }
