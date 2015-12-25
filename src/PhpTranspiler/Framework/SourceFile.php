@@ -5,7 +5,7 @@ class SourceFile extends SourceLocation
 {
     public function isPhpFile()
     {
-        $tokens = token_get_all(file_get_contents($this->url));
+        $tokens = token_get_all(stream_get_contents($this->getHandle()));
         foreach ($tokens as $token) {
             if ($token[0] === T_OPEN_TAG) {
                 $found_opening_tag = true;
@@ -25,5 +25,10 @@ class SourceFile extends SourceLocation
     {
 
         return is_file($this->url);
+    }
+
+    protected function getHandle()
+    {
+        return fopen($this->url, 'r');
     }
 }

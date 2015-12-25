@@ -2,6 +2,7 @@
 namespace PhpTranspiler\Command;
 
 use PhpTranspiler\Framework\SourceDir;
+use PhpTranspiler\Framework\SourceDirView;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -27,5 +28,6 @@ class AnalyzeCommand extends Command
         $path = $input->getArgument('path');
         $output->writeln('<info>Analyzing ' . $path . '</info>');
         $source_dir = new SourceDir($path);
+        $output->writeln('<info>' . (new SourceDirView($source_dir))->render() . '</info>');
     }
 }

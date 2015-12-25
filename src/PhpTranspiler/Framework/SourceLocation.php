@@ -15,6 +15,8 @@ abstract class SourceLocation
         }
     }
 
+    abstract protected function getHandle();
+
     abstract protected function invalidPathMessage();
 
     abstract protected function checkValidPath();
