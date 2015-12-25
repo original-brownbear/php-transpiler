@@ -6,9 +6,6 @@ use \PhpTranspiler\Framework\PhpSourceSanitization;
 
 class MethodTypeTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @todo: implement example token representations
-     */
     public function testType()
     {
         $source  = '
