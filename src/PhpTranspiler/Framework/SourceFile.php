@@ -1,21 +1,8 @@
 <?php
 namespace PhpTranspiler\Framework;
 
-use Symfony\Component\Console\Exception\InvalidArgumentException;
-
-class SourceFile
+class SourceFile extends SourceLocation
 {
-    private $url;
-
-    public function __construct($path)
-    {
-        if (false === is_file($path)) {
-            throw new InvalidArgumentException('Given path does not contain a file.');
-        }
-
-        $this->url = $path;
-    }
-
     public function isPhpFile()
     {
         $tokens = token_get_all(file_get_contents($this->url));
@@ -27,5 +14,16 @@ class SourceFile
         }
 
         return ! empty($found_opening_tag);
+    }
+
+    protected function invalidPathMessage()
+    {
+        return 'Given path does not contain a file.';
+    }
+
+    protected function checkValidPath()
+    {
+
+        return is_file($this->url);
     }
 }

@@ -1,17 +1,16 @@
 <?php
 namespace PhpTranspiler\Framework;
 
-use Symfony\Component\Console\Exception\InvalidArgumentException;
-
-class SourceDir
+class SourceDir extends SourceLocation
 {
-    private $url;
-
-    public function __construct($path)
+    protected function invalidPathMessage()
     {
-        if (false === is_dir($path)) {
-            throw new InvalidArgumentException('Given path is not a directory.');
-        }
-        $this->url = $path;
+        return 'Given path does not contain a directory.';
+    }
+
+    protected function checkValidPath()
+    {
+
+        return is_dir($this->url);
     }
 }
