@@ -4,16 +4,16 @@ namespace PhpTranspiler\Framework;
 class SourceDirView
 {
     /** @var  SourceDir $source_dir */
-    private $source_dir;
+    private $sourceDir;
 
-    public function __construct($source_dir)
+    public function __construct($sourceDir)
     {
-        $this->source_dir = $source_dir;
+        $this->sourceDir = $sourceDir;
     }
 
     public function render()
     {
-        $files = $this->source_dir->getFiles();
+        $files = $this->sourceDir->getFiles();
 
         return 'Analyzing ' . count($files) . ' files';
     }
