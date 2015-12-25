@@ -7,12 +7,18 @@ abstract class SourceLocation
 {
     protected $url;
 
-    public function __construct($path)
+    /**
+     * @var PhpSourceFactory $sourceFactory
+     */
+    protected $sourceFactory;
+
+    public function __construct(&$sourceFactory, $path)
     {
         $this->url = $path;
         if (false === $this->checkValidPath()) {
             throw new InvalidArgumentException($this->invalidPathMessage());
         }
+        $this->sourceFactory = &$sourceFactory;
     }
 
     abstract protected function getHandle();

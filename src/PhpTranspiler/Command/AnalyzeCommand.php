@@ -1,6 +1,7 @@
 <?php
 namespace PhpTranspiler\Command;
 
+use PhpTranspiler\Framework\PhpSourceFactory;
 use PhpTranspiler\Framework\SourceDir;
 use PhpTranspiler\Framework\SourceDirView;
 use Symfony\Component\Console\Command\Command;
@@ -27,7 +28,8 @@ class AnalyzeCommand extends Command
         $output->writeln('<info>PHP Transpiler</info>');
         $path = $input->getArgument('path');
         $output->writeln('<info>Analyzing ' . $path . '</info>');
-        $sourceDir = new SourceDir($path);
+        $sourceFactory = new PhpSourceFactory();
+        $sourceDir     = new SourceDir($sourceFactory, $path);
         $output->writeln('<info>' . (new SourceDirView($sourceDir))->render() . '</info>');
     }
 }

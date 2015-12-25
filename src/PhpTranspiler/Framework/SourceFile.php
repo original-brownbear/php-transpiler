@@ -5,15 +5,15 @@ class SourceFile extends SourceLocation
 {
     public function isPhpFile()
     {
-        $tokens = token_get_all(stream_get_contents($this->getHandle()));
-        foreach ($tokens as $token) {
-            if ($token[0] === T_OPEN_TAG) {
-                $foundOpeningTag = true;
-                break;
-            }
-        }
 
-        return ! empty($foundOpeningTag);
+        return $this->sourceFactory
+            ->isValid($this->stringContent());
+    }
+
+    public function stringContent()
+    {
+
+        return stream_get_contents($this->getHandle());
     }
 
     protected function invalidPathMessage()

@@ -1,5 +1,6 @@
 <?php
 use \PhpTranspiler\Framework\SourceDir;
+use \PhpTranspiler\Framework\PhpSourceFactory;
 use org\bovigo\vfs\vfsStream;
 
 class SourceDirTest extends \PHPUnit_Framework_TestCase
@@ -9,7 +10,7 @@ class SourceDirTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorException()
     {
-        new SourceDir('/fooo');
+        $this->getSubject('/fooo');
     }
 
     public function testGetFiles()
@@ -17,12 +18,19 @@ class SourceDirTest extends \PHPUnit_Framework_TestCase
         $source_path = '/src/sources';
         $vfs         = vfsStream::setup($source_path);
         $vfs->addChild(vfsStream::newFile('text.txt'));
-        $subject = new SourceDir($vfs->url());
+        $subject = $this->getSubject($vfs->url());
         $this->assertCount(1, $subject->getFiles());
         $subdir_path = 'foo';
         $subdir      = vfsStream::newDirectory($subdir_path);
         $subdir->addChild(vfsStream::newFile('bar.php'));
         $vfs->addChild($subdir);
         $this->assertCount(2, $subject->getFiles());
+    }
+
+    private function getSubject($path)
+    {
+        $sourceFactory = new PhpSourceFactory();
+
+        return new SourceDir($sourceFactory, $path);
     }
 }
