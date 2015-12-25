@@ -16,9 +16,13 @@ class SourceDirTest extends \PHPUnit_Framework_TestCase
     {
         $source_path = '/src/sources';
         $vfs         = vfsStream::setup($source_path);
-        $dir         = vfsStream::newDirectory($source_path);
-        $dir->addChild(vfsStream::newFile('text.txt')->at($vfs));
-        $subject = new SourceDir($dir->url());
+        $vfs->addChild(vfsStream::newFile('text.txt'));
+        $subject = new SourceDir($vfs->url());
         $this->assertCount(1, $subject->getFiles());
+        $subdir_path = 'foo';
+        $subdir      = vfsStream::newDirectory($subdir_path);
+        $subdir->addChild(vfsStream::newFile('bar.php'));
+        $vfs->addChild($subdir);
+        $this->assertCount(2, $subject->getFiles());
     }
 }

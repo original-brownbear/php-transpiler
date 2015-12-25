@@ -8,9 +8,15 @@ class SourceDir extends SourceLocation
         $handle = $this->getHandle();
         $files  = array();
         while (false !== ($entry = readdir($handle))) {
+            if (in_array($entry, array('.', '..'), true)) {
+                continue;
+            }
             $file_path = $this->url . '/' . $entry;
             if (is_file($file_path)) {
                 $files[] = new SourceFile($file_path);
+            } elseif (is_dir($file_path)) {
+                $files = array_merge($files,
+                    (new SourceDir($file_path))->getFiles());
             }
         }
 
