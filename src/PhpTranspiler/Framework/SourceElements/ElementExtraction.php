@@ -1,15 +1,8 @@
 <?php
 namespace PhpTranspiler\Framework\SourceElements;
 
-class ElementExtraction
+abstract class ElementExtraction extends TokenArrayAnalysis
 {
-    protected $tokenArray;
-
-    public function __construct($TokenArray)
-    {
-        $this->tokenArray = $TokenArray;
-    }
-
     protected function findEndIndex($i)
     {
         $open   = 0;
