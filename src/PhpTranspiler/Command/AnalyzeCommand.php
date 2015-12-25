@@ -1,6 +1,7 @@
 <?php
 namespace PhpTranspiler\Command;
 
+require_once dirname(__DIR__) . '/constants.php';
 use PhpTranspiler\Framework\PhpSourceFactory;
 use PhpTranspiler\Framework\SourceDir;
 use PhpTranspiler\Framework\SourceDirView;
