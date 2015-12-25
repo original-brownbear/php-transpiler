@@ -8,12 +8,12 @@ class SourceFile extends SourceLocation
         $tokens = token_get_all(stream_get_contents($this->getHandle()));
         foreach ($tokens as $token) {
             if ($token[0] === T_OPEN_TAG) {
-                $found_opening_tag = true;
+                $foundOpeningTag = true;
                 break;
             }
         }
 
-        return ! empty($found_opening_tag);
+        return ! empty($foundOpeningTag);
     }
 
     protected function invalidPathMessage()
