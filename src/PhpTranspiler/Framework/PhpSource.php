@@ -7,7 +7,7 @@ class PhpSource
 
     public function __construct($source)
     {
-        $this->source = $source;
+        $this->source = (new PhpSourceSanitization($source))->stringContent();
     }
 
     public function stringContent()
