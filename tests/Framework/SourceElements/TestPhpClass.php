@@ -20,6 +20,7 @@ class DummyClass {
         $this->assertArrayHasKey('DummyClass', $classes);
         $methods = $classes['DummyClass']->methods();
         $this->assertArrayHasKey('getName', $methods);
-        $this->assertEquals('}', end($methods['getName']));
+        $tokenArray = $methods['getName']->toTokenArray();
+        $this->assertEquals('}', end($tokenArray));
     }
 }

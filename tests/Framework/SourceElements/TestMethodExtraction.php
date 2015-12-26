@@ -24,6 +24,7 @@ class DummyClass {
         $this->assertArrayHasKey('DummyClass', $classes);
         $methods = (new MethodExtraction($classes['DummyClass']))->methods();
         $this->assertArrayHasKey('getName', $methods);
-        $this->assertEquals('}', end($methods['getName']));
+        $methodTokens = $methods['getName']->toTokenArray();
+        $this->assertEquals('}', end($methodTokens));
     }
 }

@@ -9,13 +9,18 @@ class MethodExtraction extends ElementExtraction
         parent::__construct($class->toTokenArray());
     }
 
+    /**
+     * @return PhpMethod[]
+     */
     public function methods()
     {
         $methods = array();
 
         foreach ($this->tokenArray as $i => $token) {
             if ($token[0] === T_FUNCTION) {
-                $methods[$this->tokenArray[$i + 2][1]] = $this->extractCurlyBracketsContent($i);
+                $methodName           = $this->tokenArray[$i + 2][1];
+                $methods[$methodName] = new PhpMethod($this->extractCurlyBracketsContent($i),
+                    $methodName);
             }
         }
 
