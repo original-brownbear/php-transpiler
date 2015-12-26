@@ -10,6 +10,12 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Class AnalyzeCommand
+ * @package PhpTranspiler\Command
+ *
+ * Analyzes a given source file or directory for possible optimizations
+ */
 class AnalyzeCommand extends Command
 {
     protected function configure()
