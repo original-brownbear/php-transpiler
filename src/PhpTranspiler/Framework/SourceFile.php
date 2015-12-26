@@ -24,6 +24,9 @@ class SourceFile extends SourceLocation
         return $this->url;
     }
 
+    /**
+     * @return SourceElements\PhpClass[]
+     */
     public function getClasses()
     {
         return (new ClassExtraction(

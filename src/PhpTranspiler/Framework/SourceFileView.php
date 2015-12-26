@@ -1,6 +1,8 @@
 <?php
 namespace PhpTranspiler\Framework;
 
+use PhpTranspiler\Framework\SourceElements\PhpClassView;
+
 class SourceFileView
 {
     /** @var  SourceFile $source_dir */
@@ -13,10 +15,14 @@ class SourceFileView
 
     public function render()
     {
-        $classes = $this->sourceFile->getClasses();
+        $classes     = $this->sourceFile->getClasses();
+        $classOutput = array();
+        foreach ($classes as $class) {
+            $classOutput[] = (new PhpClassView($class))->render();
+        }
 
         return ' Analyzing ' . count($classes) . " classes in "
                . $this->sourceFile->getPath() . ":\n" . join("\n",
-            array_keys($classes));
+            $classOutput);
     }
 }

@@ -13,7 +13,12 @@ class AnalyzeCommandTest extends \PHPUnit_Framework_TestCase
         $source_path = '/src/sources';
         $path        = vfsStream::setup($source_path);
         $dir         = vfsStream::newDirectory($source_path);
-        $dir->addChild(vfsStream::newFile('text.php')->at($path));
+        $dir->addChild(vfsStream::newFile('text.php')->setContent('
+        <?php
+        class TestClass {
+
+        }
+        ')->at($path));
 
         $command       = $application->find('analyze');
         $commandTester = new CommandTester($command);

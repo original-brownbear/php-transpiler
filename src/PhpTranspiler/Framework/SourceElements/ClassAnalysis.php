@@ -11,5 +11,4 @@ class ClassAnalysis
     {
         $this->class = $class;
     }
-
 }
