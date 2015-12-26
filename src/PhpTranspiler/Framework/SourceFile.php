@@ -1,6 +1,8 @@
 <?php
 namespace PhpTranspiler\Framework;
 
+use PhpTranspiler\Framework\SourceElements\ClassExtraction;
+
 class SourceFile extends SourceLocation
 {
     public function isPhpFile()
@@ -14,6 +16,18 @@ class SourceFile extends SourceLocation
     {
 
         return stream_get_contents($this->getHandle());
+    }
+
+    public function getPath()
+    {
+
+        return $this->url;
+    }
+
+    public function getClasses()
+    {
+        return (new ClassExtraction(
+            token_get_all($this->stringContent())))->classes();
     }
 
     protected function invalidPathMessage()

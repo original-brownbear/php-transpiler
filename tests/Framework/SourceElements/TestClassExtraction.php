@@ -17,7 +17,8 @@ class DummyClass {
             ';
         $classes = (new ClassExtraction(token_get_all((new PhpSourceSanitization($source))->stringContent())))->classes();
         $this->assertArrayHasKey('DummyClass', $classes);
-        $this->assertEquals('}', end($classes['DummyClass']->toTokenArray()));
+        $classTokens = $classes['DummyClass']->toTokenArray();
+        $this->assertEquals('}', end($classTokens));
         $classes = (new ClassExtraction(token_get_all((new PhpSourceSanitization($source . '
 class AnotherDummyClass {
 

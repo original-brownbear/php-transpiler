@@ -14,7 +14,12 @@ class SourceDirView
     public function render()
     {
         $files = $this->sourceDir->getFiles();
+        $out   = ' Analyzing ' . count($files) . " files\n";
 
-        return 'Analyzing ' . count($files) . ' files';
+        foreach ($files as $file) {
+            $out .= (new SourceFileView($file))->render() . "\n";
+        }
+
+        return $out;
     }
 }
