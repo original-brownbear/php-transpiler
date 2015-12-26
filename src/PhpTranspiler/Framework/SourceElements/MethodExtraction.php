@@ -3,6 +3,12 @@ namespace PhpTranspiler\Framework\SourceElements;
 
 class MethodExtraction extends ElementExtraction
 {
+    /** @param PhpClass $class */
+    public function __construct($class)
+    {
+        parent::__construct($class->toTokenArray());
+    }
+
     public function methods()
     {
         $methods = array();

@@ -2,20 +2,21 @@
 
 namespace PhpTranspiler\Framework\SourceElements;
 
-class PropertyDefinitions extends TokenArrayAnalysis
+class PropertyDefinitions extends ClassAnalysis
 {
     public function properties()
     {
         $properties = array();
-        foreach ($this->tokenArray as $i => $token) {
-            if (in_array($this->tokenArray[$i][0], array(
+        $tokens     = $this->class->toTokenArray();
+        foreach ($tokens as $i => $token) {
+            if (in_array($tokens[$i][0], array(
                     T_PRIVATE,
                     T_PROTECTED,
                     T_PUBLIC
-                )) && $this->tokenArray[$i + 2][0] === T_VARIABLE
+                )) && $tokens[$i + 2][0] === T_VARIABLE
             ) {
                 $properties[str_replace('$', '',
-                    $this->tokenArray[$i + 2][1])] = array('access' => $this->tokenArray[$i][0]);
+                    $tokens[$i + 2][1])] = array('access' => $tokens[$i][0]);
             }
         }
 
