@@ -27,6 +27,6 @@ class DummyClass {
         $issueArray = $issue->toArray();
         $this->assertEquals($class, $issueArray['class']);
         $this->assertEquals($method, $issueArray['method']);
-        $this->assertEquals('a', $issueArray['propertyName']);
+        $this->assertEquals('a', $issueArray['property']->name());
     }
 }

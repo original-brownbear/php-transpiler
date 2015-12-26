@@ -2,6 +2,7 @@
 namespace PhpTranspiler\Framework\Checks;
 
 use PhpTranspiler\Framework\Issues\PropertyNotDefinedIssue;
+use PhpTranspiler\Framework\SourceElements\PhpClassProperty;
 use PhpTranspiler\Framework\SourceElements\PhpMethod;
 use PhpTranspiler\Framework\SourceElements\PhpClass;
 
@@ -35,7 +36,7 @@ class PropertiesDefinedCheck
         foreach ($classPropertiesAccessed as $property) {
             if ( ! isset($classPropertiesDefined[$property])) {
                 $issues[] = new PropertyNotDefinedIssue($this->class,
-                    $this->method, $property);
+                    $this->method, new PhpClassProperty($property, T_PUBLIC));
             }
         }
 

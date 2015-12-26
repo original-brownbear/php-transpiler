@@ -5,9 +5,6 @@ use \PhpTranspiler\Framework\PhpSourceSanitization;
 
 class PropertyDefinitionsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @todo: implement example token representations
-     */
     public function testMethods()
     {
         $source  = '
@@ -30,8 +27,8 @@ class DummyClass {
         $this->assertArrayHasKey('a', $properties);
         $this->assertArrayHasKey('b', $properties);
         $this->assertArrayHasKey('c', $properties);
-        $this->assertEquals(T_PRIVATE, $properties['a']['access']);
-        $this->assertEquals(T_PROTECTED, $properties['b']['access']);
-        $this->assertEquals(T_PUBLIC, $properties['c']['access']);
+        $this->assertEquals(T_PRIVATE, $properties['a']->accessLevel());
+        $this->assertEquals(T_PROTECTED, $properties['b']->accessLevel());
+        $this->assertEquals(T_PUBLIC, $properties['c']->accessLevel());
     }
 }

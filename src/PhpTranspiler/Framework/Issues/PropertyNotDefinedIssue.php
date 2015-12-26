@@ -2,7 +2,9 @@
 namespace PhpTranspiler\Framework\Issues;
 
 use PhpTranspiler\Framework\SourceElements\PhpClass;
+use PhpTranspiler\Framework\Base\NamedElement;
 use PhpTranspiler\Framework\SourceElements\PhpMethod;
+use PhpTranspiler\Framework\SourceElements\PhpClassProperty;
 
 class PropertyNotDefinedIssue
 {
@@ -10,22 +12,25 @@ class PropertyNotDefinedIssue
     private $class;
     /** @var  PhpMethod $method */
     private $method;
-    /** @var  string $propertyName */
-    private $propertyName;
+    /** @var  PhpClassProperty $property */
+    private $property;
 
-    public function __construct($class, $method, $propertyName)
+    public function __construct($class, $method, $property)
     {
-        $this->class        = $class;
-        $this->method       = $method;
-        $this->propertyName = $propertyName;
+        $this->class    = $class;
+        $this->method   = $method;
+        $this->property = $property;
     }
 
+    /**
+     * @return NamedElement[]
+     */
     public function toArray()
     {
         return array(
-            'class'        => $this->class,
-            'method'       => $this->method,
-            'propertyName' => $this->propertyName
+            'class'    => $this->class,
+            'method'   => $this->method,
+            'property' => $this->property
         );
     }
 }

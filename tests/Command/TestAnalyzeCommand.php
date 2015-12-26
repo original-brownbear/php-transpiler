@@ -17,6 +17,10 @@ class AnalyzeCommandTest extends \PHPUnit_Framework_TestCase
         <?php
         class TestClass {
 
+            public function meh(){
+
+                return $this->a;
+            }
         }
         ')->at($path));
 

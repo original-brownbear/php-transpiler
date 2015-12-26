@@ -4,6 +4,9 @@ namespace PhpTranspiler\Framework\SourceElements;
 
 class PropertyDefinitions extends ClassAnalysis
 {
+    /**
+     * @return PhpClassProperty[]
+     */
     public function properties()
     {
         $properties = array();
@@ -15,8 +18,10 @@ class PropertyDefinitions extends ClassAnalysis
                     T_PUBLIC
                 )) && $tokens[$i + 2][0] === T_VARIABLE
             ) {
-                $properties[str_replace('$', '',
-                    $tokens[$i + 2][1])] = array('access' => $tokens[$i][0]);
+                $propertyName              = str_replace('$', '',
+                    $tokens[$i + 2][1]);
+                $properties[$propertyName] = new PhpClassProperty($propertyName,
+                    $tokens[$i][0]);
             }
         }
 

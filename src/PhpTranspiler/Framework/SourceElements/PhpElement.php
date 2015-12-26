@@ -1,7 +1,9 @@
 <?php
 namespace PhpTranspiler\Framework\SourceElements;
 
-class PhpElement extends TokenArrayAnalysis
+use PhpTranspiler\Framework\Base\NamedElement;
+
+abstract class PhpElement extends TokenArrayAnalysis implements NamedElement
 {
     /** @var  string $name */
     protected $name;
@@ -12,6 +14,9 @@ class PhpElement extends TokenArrayAnalysis
         $this->name = $name;
     }
 
+    /**
+     * @return string
+     */
     public function name()
     {
 
