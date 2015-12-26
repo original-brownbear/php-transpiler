@@ -1,7 +1,6 @@
 <?php
 use \PhpTranspiler\Framework\SourceElements\ClassExtraction;
 use \PhpTranspiler\Framework\SourceElements\MethodExtraction;
-use \PhpTranspiler\Framework\SourceElements\PropertyAccess;
 use \PhpTranspiler\Framework\PhpSourceSanitization;
 
 class PropertyAccessTest extends \PHPUnit_Framework_TestCase
@@ -28,7 +27,8 @@ class DummyClass {
         $this->assertArrayHasKey('getName', $methods);
         $methodTokens = $methods['getName']->toTokenArray();
         $this->assertEquals('}', end($methodTokens));
-        $this->assertEquals(array('i', 'name'),
-            (new PropertyAccess($methods['getName']->toTokenArray()))->properties());
+        $this->assertEquals(
+            array('i', 'name'),
+            $methods['getName']->propertyAccess()->properties());
     }
 }

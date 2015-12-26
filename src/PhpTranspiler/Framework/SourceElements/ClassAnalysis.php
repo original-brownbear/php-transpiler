@@ -2,7 +2,7 @@
 
 namespace PhpTranspiler\Framework\SourceElements;
 
-class ClassAnalysis
+abstract class ClassAnalysis
 {
     /** @var  PhpClass $class */
     protected $class;

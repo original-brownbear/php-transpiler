@@ -2,19 +2,20 @@
 
 namespace PhpTranspiler\Framework\SourceElements;
 
-class PropertyAccess extends TokenArrayAnalysis
+class PropertyAccess extends MethodAnalysis
 {
     public function properties()
     {
+        $tokenArray = $this->method->toTokenArray();
         $properties = array();
-        foreach ($this->tokenArray as $i => $token) {
-            if ($this->tokenArray[$i][0] === T_VARIABLE && $this->tokenArray[$i][1] === '$this'
-                && $this->tokenArray[$i + 1][0] === T_OBJECT_OPERATOR
-                && $this->tokenArray[$i + 2][0] === T_STRING
-                && ( ! isset($this->tokenArray[$i + 3][1]) ||
-                     ($this->tokenArray[$i + 3][0] === T_WHITESPACE && ! isset($this->tokenArray[$i + 4][1])))
+        foreach ($tokenArray as $i => $token) {
+            if ($tokenArray[$i][0] === T_VARIABLE && $tokenArray[$i][1] === '$this'
+                && $tokenArray[$i + 1][0] === T_OBJECT_OPERATOR
+                && $tokenArray[$i + 2][0] === T_STRING
+                && ( ! isset($tokenArray[$i + 3][1]) ||
+                     ($tokenArray[$i + 3][0] === T_WHITESPACE && ! isset($tokenArray[$i + 4][1])))
             ) {
-                $properties[] = $this->tokenArray[$i + 2][1];
+                $properties[] = $tokenArray[$i + 2][1];
             }
         }
 
