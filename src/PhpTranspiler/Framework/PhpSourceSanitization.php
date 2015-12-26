@@ -16,7 +16,13 @@ class PhpSourceSanitization
         $phpSection      = false;
         $sanitizedTokens = array();
         $openTagFound    = false;
-        foreach ($tokens as $token) {
+        foreach ($tokens as $index => $token) {
+            if (isset($token[1])) {
+                $token[1] = str_replace("\n", ' ', $token[1]);
+                if (isset($tokens[$index - 1]) && $tokens[$index - 1] === '{') {
+                    $token[1] = str_replace(' ', '', $token[1]);
+                }
+            }
             if (($openTagNow = $token[0] === T_OPEN_TAG) === true) {
                 $phpSection = true;
             } elseif ($token[0] === T_CLOSE_TAG) {
@@ -27,13 +33,9 @@ class PhpSourceSanitization
                 $sanitizedTokens[] = $token;
             }
         }
-
         $output = '';
         foreach ($sanitizedTokens as $key => $token) {
-            $output .= '' . (is_array($token) ? $token[1]
-                    : (isset($sanitizedTokens[$key + 1]) && $token === ';'
-                        ? $token . "\n" : $token)
-                );
+            $output .= '' . (is_array($token) ? $token[1] : $token);
         }
 
         return $output;

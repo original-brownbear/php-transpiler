@@ -17,10 +17,12 @@ class PhpSourceFactoryTest extends \PHPUnit_Framework_TestCase
     public function testPhpSource()
     {
         /** @var PHPUnit_Framework_MockObject_MockObject|\PhpTranspiler\Framework\SourceFile $mockSourceFile */
-        $mockSourceFile = $this->getMockBuilder('\PhpTranspiler\Framework\SourceFile')->disableOriginalConstructor()->getMock();
-        $sourceCode     = "<?php\necho 'bar';";
+        $mockSourceFile      = $this->getMockBuilder('\PhpTranspiler\Framework\SourceFile')->disableOriginalConstructor()->getMock();
+        $sourceCode          = "<?php\necho 'bar';";
+        $sourceCodeSanitized = "<?php echo 'bar';";
         $mockSourceFile->method('stringContent')->willReturn($sourceCode);
         $sourceObject = (new PhpSourceFactory())->phpSource($mockSourceFile);
-        $this->assertEquals($sourceCode, $sourceObject->stringContent());
+        $this->assertEquals($sourceCodeSanitized,
+            $sourceObject->stringContent());
     }
 }
