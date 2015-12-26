@@ -5,9 +5,6 @@ use PhpTranspiler\Framework\Checks\PropertiesDefinedCheck;
 
 class PropertiesDefinedCheckTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @todo: implement example token representations
-     */
     public function testClasses()
     {
         $source  = '
