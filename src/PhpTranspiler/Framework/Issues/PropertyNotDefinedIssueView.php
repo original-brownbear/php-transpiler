@@ -1,5 +1,6 @@
 <?php
 namespace PhpTranspiler\Framework\Issues;
+
 class PropertyNotDefinedIssueView
 {
     private $issue;
@@ -18,9 +19,9 @@ class PropertyNotDefinedIssueView
     {
         $data = $this->issue->toArray();
 
-        return '<warn> Undefined property ' . $data['property']->name()
+        return "- <error> Undefined property " . $data['property']->name()
                . ' is accessed by method ' . $data['method']->name() .
                'of class ' . $data['class']->name()
-               . '</warn>';
+               . "</error>\n";
     }
 }

@@ -5,9 +5,6 @@ use \PhpTranspiler\Framework\PhpSourceSanitization;
 
 class PropertyAccessTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @todo: implement example token representations
-     */
     public function testMethods()
     {
         $source  = '

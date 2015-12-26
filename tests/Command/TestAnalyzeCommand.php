@@ -23,14 +23,20 @@ class AnalyzeCommandTest extends \PHPUnit_Framework_TestCase
             }
         }
         ')->at($path));
-
+        $dir->addChild(vfsStream::newFile('text2.php')->setContent('
+        <?php
+        class TestClassTwo {
+        }
+        ')->at($path));
         $command       = $application->find('analyze');
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(
             'command' => $command->getName(),
             'path'    => $dir->url()
         ));
-        $this->assertRegExp('/PHP/', $commandTester->getDisplay());
+        $output = $commandTester->getDisplay();
+        $this->assertRegExp('/PHP/', $output);
+        $this->assertRegExp('/issues/', $output);
     }
 
     /**

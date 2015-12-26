@@ -16,13 +16,15 @@ class PhpClassView extends ClassAnalysis
         }
         $issues = (new CheckClass($this->class))->issues();
         if ((bool)$issues === true) {
-            $issuesString = ":\n <error>--issues:</error>\n";
+            $issuesString = ":\n <error>-issues:</error>\n";
             foreach ($issues as $issue) {
                 $issuesString .= (new PropertyNotDefinedIssueView($issue))->render();
             }
+        } else {
+            $issuesString = '';
         }
 
         return $this->class->name() . ":\n methods:\n"
-               . join("\n", $methodStrings);
+               . join("\n", $methodStrings) . $issuesString;
     }
 }
