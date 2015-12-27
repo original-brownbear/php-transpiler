@@ -5,10 +5,8 @@ use PhpTranspiler\Framework\SourceElements\ClassAnalysis;
 
 class ClassWriter extends ClassAnalysis
 {
-
     public function asString()
     {
-
         $tokens = $this->class->toTokenArray();
         $output = 'class ' . $this->class->name();
         foreach ($tokens as $token) {
