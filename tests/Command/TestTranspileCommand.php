@@ -1,5 +1,4 @@
 <?php
-use PhpTranspiler\Command\AnalyzeCommand;
 use PhpTranspiler\Command\TranspileCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -31,14 +30,17 @@ class TranspileCommandTest extends \PHPUnit_Framework_TestCase
         ')->at($path));
         $command       = $application->find('transpile');
         $commandTester = new CommandTester($command);
+        $outputPath    = $path->url() . '/out';
+        $this->assertFalse(is_dir($outputPath));
         $commandTester->execute(array(
             'command' => $command->getName(),
             'path'    => $dir->url(),
-            'output'  => $path->url() . '/out'
+            'output'  => $outputPath
         ));
         $output = $commandTester->getDisplay();
         $this->assertRegExp('/PHP/', $output);
         $this->assertRegExp('/issues/', $output);
+        $this->assertTrue(is_dir($outputPath));
     }
 
     /**

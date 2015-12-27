@@ -18,6 +18,12 @@ class SourceFile extends SourceLocation
         return stream_get_contents($this->getHandle());
     }
 
+    public function setStringContent($content)
+    {
+
+        return fputs($this->getHandle('w+'), $content);
+    }
+
     public function getPath()
     {
 
@@ -44,8 +50,8 @@ class SourceFile extends SourceLocation
         return is_file($this->url);
     }
 
-    protected function getHandle()
+    protected function getHandle($mode = 'r')
     {
-        return fopen($this->url, 'r');
+        return fopen($this->url, $mode);
     }
 }

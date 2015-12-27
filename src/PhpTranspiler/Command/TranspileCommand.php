@@ -2,6 +2,7 @@
 namespace PhpTranspiler\Command;
 
 require_once dirname(__DIR__) . '/constants.php';
+use PhpTranspiler\Framework\Actions\Transpile;
 use PhpTranspiler\Framework\PhpSourceFactory;
 use PhpTranspiler\Framework\SourceDir;
 use PhpTranspiler\Framework\SourceDirView;
@@ -42,6 +43,8 @@ class TranspileCommand extends Command
         $output->writeln('<info>Transpiling ' . $inputPath . ' to ' . $outputPath . '</info>');
         $sourceFactory = new PhpSourceFactory();
         $sourceDir     = new SourceDir($sourceFactory, $inputPath);
+        $sourceDir->copyTo($outputPath);
+        (new Transpile(new SourceDir($sourceFactory, $outputPath)))->run();
         $output->writeln('<info>' . (new SourceDirView($sourceDir))->render() . '</info>');
         $output->writeln('<info>Now Fixing Issues</info>');
     }

@@ -13,25 +13,23 @@ class PhpSourceSanitization
     public function stringContent()
     {
         $tokens          = token_get_all($this->source);
-        $phpSection      = false;
         $sanitizedTokens = array();
-        $openTagFound    = false;
         foreach ($tokens as $index => $token) {
             if (isset($token[1])) {
                 $token[1] = str_replace("\n", ' ', $token[1]);
-                if (isset($tokens[$index - 1]) && $tokens[$index - 1] === '{') {
+                $token[1] = str_replace("\t", ' ', $token[1]);
+                if (isset($tokens[$index - 1]) && in_array($tokens[$index - 1],
+                        array('{', ';'), true)
+                ) {
+                    $token[1] = str_replace(' ', '', $token[1]);
+                }
+                if (isset($tokens[$index + 1]) && in_array($tokens[$index + 1],
+                        array('{', ';', '}'), true)
+                ) {
                     $token[1] = str_replace(' ', '', $token[1]);
                 }
             }
-            if (($openTagNow = $token[0] === T_OPEN_TAG) === true) {
-                $phpSection = true;
-            } elseif ($token[0] === T_CLOSE_TAG) {
-                $phpSection = false;
-            }
-            if ($phpSection && ! ($openTagFound && $openTagNow)) {
-                $openTagFound      = true;
-                $sanitizedTokens[] = $token;
-            }
+            $sanitizedTokens[] = $token;
         }
         $output = '';
         foreach ($sanitizedTokens as $key => $token) {

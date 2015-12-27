@@ -3,6 +3,9 @@ namespace PhpTranspiler\Framework;
 
 class SourceDir extends SourceLocation
 {
+    /**
+     * @return SourceFile[]
+     */
     public function getFiles()
     {
         $handle = $this->getHandle();
@@ -22,6 +25,26 @@ class SourceDir extends SourceLocation
         }
 
         return $files;
+    }
+
+    public function copyTo($path, $src = null)
+    {
+        $dir = $src ? opendir($src) : $this->getHandle();
+        if ( ! is_dir($path)) {
+            mkdir($path, 0777, true);
+        }
+        while (false !== ($file = readdir($dir))) {
+            if (($file != '.') && ($file != '..')) {
+                if (is_dir($this->url . '/' . $file)) {
+                    $this->copyTo(
+                        $path . '/' . $file,
+                        $this->url . '/' . $file);
+                } else {
+                    copy($this->url . '/' . $file, $path . '/' . $file);
+                }
+            }
+        }
+        closedir($dir);
     }
 
     protected function invalidPathMessage()
