@@ -5,6 +5,7 @@ use PhpTranspiler\Framework\SourceElements\PhpClass;
 use PhpTranspiler\Framework\Base\NamedElement;
 use PhpTranspiler\Framework\SourceElements\PhpMethod;
 use PhpTranspiler\Framework\SourceElements\PhpClassProperty;
+use PhpTranspiler\Framework\SourceOperations\AddClassProperty;
 
 class PropertyNotDefinedIssue
 {
@@ -20,6 +21,15 @@ class PropertyNotDefinedIssue
         $this->class    = $class;
         $this->method   = $method;
         $this->property = $property;
+    }
+
+    /**
+     * @return PhpClass
+     */
+    public function adjustedClass()
+    {
+        return (new AddClassProperty($this->class,
+            $this->property))->adjustedClass();
     }
 
     /**

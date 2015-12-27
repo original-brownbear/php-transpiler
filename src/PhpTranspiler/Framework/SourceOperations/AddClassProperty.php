@@ -22,6 +22,9 @@ class AddClassProperty extends ClassAnalysis
         $this->property = $property;
     }
 
+    /**
+     * @return PhpClass
+     */
     public function adjustedClass()
     {
         $tokenArray = $this->class->toTokenArray();
