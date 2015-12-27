@@ -9,3 +9,4 @@ No functionality yet :/
 [![Total Downloads](https://poser.pugx.org/brownbear/php-transpiler/downloads)](https://packagist.org/packages/brownbear/php-transpiler)
 [![Code Climate](https://codeclimate.com/github/original-brownbear/php-transpiler/badges/gpa.svg)](https://codeclimate.com/github/original-brownbear/php-transpiler)
 [![Test Coverage](https://codeclimate.com/github/original-brownbear/php-transpiler/badges/coverage.svg)](https://codeclimate.com/github/original-brownbear/php-transpiler/coverage)
+[![Dependency Status](https://www.versioneye.com/user/projects/567fc289eb4f47003c000092/badge.svg?style=flat)](https://www.versioneye.com/user/projects/567fc289eb4f47003c000092)
