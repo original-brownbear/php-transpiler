@@ -11,6 +11,9 @@ class PhpClass extends PhpElement
         return (new MethodExtraction($this))->methods();
     }
 
+    /**
+     * @return PhpClassProperty[]
+     */
     public function properties()
     {
         return (new PropertyDefinitions($this))->properties();
