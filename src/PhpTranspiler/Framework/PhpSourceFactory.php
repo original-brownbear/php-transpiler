@@ -2,9 +2,31 @@
 namespace PhpTranspiler\Framework;
 
 use Symfony\Component\Console\Exception\InvalidArgumentException;
+use PhpParser\Parser;
 
 class PhpSourceFactory
 {
+    /** @var Parser $parser */
+    private $parser;
+
+    /**
+     * PhpSourceFactory constructor.
+     *
+     * @param Parser $parser
+     */
+    public function __construct($parser)
+    {
+        $this->parser = $parser;
+    }
+
+    /**
+     * @return Parser
+     */
+    public function parser()
+    {
+        return $this->parser;
+    }
+
     public function isValid($source)
     {
         $tokens = token_get_all($source);

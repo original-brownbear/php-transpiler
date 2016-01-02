@@ -3,7 +3,7 @@ use \PhpTranspiler\Framework\SourceDir;
 use \PhpTranspiler\Framework\PhpSourceFactory;
 use org\bovigo\vfs\vfsStream;
 
-class SourceDirTest extends \PHPUnit_Framework_TestCase
+class SourceDirTest extends PhpTranspilerTestCase
 {
     /**
      * @expectedException Symfony\Component\Console\Exception\InvalidArgumentException
@@ -29,7 +29,7 @@ class SourceDirTest extends \PHPUnit_Framework_TestCase
 
     private function getSubject($path)
     {
-        $sourceFactory = new PhpSourceFactory();
+        $sourceFactory = $this->sourceFactory();
 
         return new SourceDir($sourceFactory, $path);
     }

@@ -16,7 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * Analyzes a given source file or directory for possible optimizations
  */
-class AnalyzeCommand extends Command
+class AnalyzeCommand extends PhpTranspilerCommand
 {
     protected function configure()
     {
@@ -35,7 +35,7 @@ class AnalyzeCommand extends Command
         $output->writeln('<info>PHP Transpiler</info>');
         $path = $input->getArgument('path');
         $output->writeln('<info>Analyzing ' . $path . '</info>');
-        $sourceFactory = new PhpSourceFactory();
+        $sourceFactory = $this->sourceFactory();
         $sourceDir     = new SourceDir($sourceFactory, $path);
         $output->writeln('<info>' . (new SourceDirView($sourceDir))->render() . '</info>');
     }

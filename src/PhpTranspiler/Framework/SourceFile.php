@@ -51,6 +51,22 @@ class SourceFile extends SourceLocation
             token_get_all($this->stringContent())))->classes();
     }
 
+    /**
+     * @return null|\PhpParser\Node[]
+     */
+    public function sourceTree()
+    {
+
+        return $this->sourceFactory->parser()->parse($this->stringContent());
+    }
+
+    public function relativeFile($pathRelative)
+    {
+
+        return new SourceFile($this->sourceFactory,
+            dirname($this->url) . '/' . $pathRelative);
+    }
+
     protected function invalidPathMessage()
     {
         return 'Given path does not contain a file.';

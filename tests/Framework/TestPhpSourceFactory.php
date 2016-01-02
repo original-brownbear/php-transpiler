@@ -1,7 +1,6 @@
 <?php
-use \PhpTranspiler\Framework\PhpSourceFactory;
 
-class PhpSourceFactoryTest extends \PHPUnit_Framework_TestCase
+class PhpSourceFactoryTest extends PhpTranspilerTestCase
 {
     /**
      * @expectedException Symfony\Component\Console\Exception\InvalidArgumentException
@@ -11,7 +10,7 @@ class PhpSourceFactoryTest extends \PHPUnit_Framework_TestCase
         /** @var PHPUnit_Framework_MockObject_MockObject|\PhpTranspiler\Framework\SourceFile $mockSourceFile */
         $mockSourceFile = $this->getMockBuilder('\PhpTranspiler\Framework\SourceFile')->disableOriginalConstructor()->getMock();
         $mockSourceFile->method('stringContent')->willReturn('fooo');
-        (new PhpSourceFactory())->phpSource($mockSourceFile);
+        $this->sourceFactory()->phpSource($mockSourceFile);
     }
 
     public function testPhpSource()
@@ -21,7 +20,7 @@ class PhpSourceFactoryTest extends \PHPUnit_Framework_TestCase
         $sourceCode          = "<?php\necho 'bar';";
         $sourceCodeSanitized = "<?php echo 'bar';";
         $mockSourceFile->method('stringContent')->willReturn($sourceCode);
-        $sourceObject = (new PhpSourceFactory())->phpSource($mockSourceFile);
+        $sourceObject = $this->sourceFactory()->phpSource($mockSourceFile);
         $this->assertEquals($sourceCodeSanitized,
             $sourceObject->stringContent());
     }

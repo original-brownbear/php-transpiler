@@ -18,7 +18,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Analyzes a given source file or directory for possible optimizations
  * and saves and optimized Version of the code
  */
-class TranspileCommand extends Command
+class TranspileCommand extends PhpTranspilerCommand
 {
     protected function configure()
     {
@@ -41,7 +41,7 @@ class TranspileCommand extends Command
         $inputPath  = $input->getArgument('path');
         $outputPath = $input->getArgument('output');
         $output->writeln('<info>Transpiling ' . $inputPath . ' to ' . $outputPath . '</info>');
-        $sourceFactory = new PhpSourceFactory();
+        $sourceFactory = $this->sourceFactory();
         $sourceDir     = new SourceDir($sourceFactory, $inputPath);
         $sourceDir->copyTo($outputPath);
         (new Transpile(new SourceDir($sourceFactory, $outputPath)))->run();

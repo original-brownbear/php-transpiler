@@ -1,9 +1,8 @@
 <?php
 use \PhpTranspiler\Framework\SourceFile;
-use \PhpTranspiler\Framework\PhpSourceFactory;
 use org\bovigo\vfs\vfsStream;
 
-class SourceFileTest extends \PHPUnit_Framework_TestCase
+class SourceFileTest extends PhpTranspilerTestCase
 {
     /**
      * @expectedException Symfony\Component\Console\Exception\InvalidArgumentException
@@ -27,7 +26,7 @@ class SourceFileTest extends \PHPUnit_Framework_TestCase
 
     private function getSubject($path)
     {
-        $sourceFactory = new PhpSourceFactory();
+        $sourceFactory = $this->sourceFactory();
 
         return new SourceFile($sourceFactory, $path);
     }
