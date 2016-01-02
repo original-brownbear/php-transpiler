@@ -1,26 +1,24 @@
 <?php
+use PhpParser\Node\Stmt\Class_;
 use \PhpTranspiler\Framework\SourceElements\ClassExtraction;
-use \PhpTranspiler\Framework\PhpSourceSanitization;
 use PhpTranspiler\Framework\SourceElements\PhpClassProperty;
 use PhpTranspiler\Framework\SourceOperations\AddClassProperty;
 
-class AddClassPropertyTest extends \PHPUnit_Framework_TestCase
+class AddClassPropertyTest extends PhpTranspilerTestCase
 {
     public function testAdjustedClass()
     {
-        $source  = '
+        $classes = (new ClassExtraction($this->sourceToNodes('
 <?php
 class DummyClass {
 }
-            ';
-        $classes = (new ClassExtraction(token_get_all((new PhpSourceSanitization($source))->stringContent())))->classes();
+            ')))->classes();
         $this->assertArrayHasKey('DummyClass', $classes);
         $propertyName = 'foo';
-        $accessLevel  = T_PUBLIC;
+        $accessLevel  = Class_::MODIFIER_PUBLIC;
         $subject      = new AddClassProperty($classes['DummyClass'],
             new PhpClassProperty($propertyName, $accessLevel));
-        $newClass     = $subject->adjustedClass();
-        $properties   = $newClass->properties();
+        $properties   = $subject->adjustedClass()->properties();
         $this->assertArrayHasKey($propertyName, $properties);
         $property = $properties[$propertyName];
         $this->assertEquals($propertyName, $property->name());

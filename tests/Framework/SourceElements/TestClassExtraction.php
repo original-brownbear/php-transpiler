@@ -10,16 +10,12 @@ class ClassExtractionTest extends PhpTranspilerTestCase
     public function testClasses()
     {
         $source  = "<?php\n" . $this->emptyClassString('DummyClass');
-        $classes = (new ClassExtraction(
-            token_get_all((new PhpSourceSanitization($source))
-                ->stringContent())))->classes();
+        $classes = (new ClassExtraction($this->sourceToNodes($source)))->classes();
         $this->assertArrayHasKey('DummyClass', $classes);
-        $classTokens = $classes['DummyClass']->toTokenArray();
-        $this->assertEquals('}', end($classTokens));
-        $classes = (new ClassExtraction(token_get_all(
-            (new PhpSourceSanitization(
+        $classes = (new ClassExtraction(
+            $this->sourceToNodes(
                 $source . "\n" . $this->emptyClassString('AnotherDummyClass')))
-                ->stringContent())))->classes();
+        )->classes();
         $this->assertArrayHasKey('DummyClass', $classes);
         $this->assertArrayHasKey('AnotherDummyClass', $classes);
     }

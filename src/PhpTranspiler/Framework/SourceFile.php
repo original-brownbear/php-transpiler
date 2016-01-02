@@ -47,8 +47,7 @@ class SourceFile extends SourceLocation
      */
     public function getClasses()
     {
-        return (new ClassExtraction(
-            token_get_all($this->stringContent())))->classes();
+        return (new ClassExtraction($this->sourceTree()))->classes();
     }
 
     /**

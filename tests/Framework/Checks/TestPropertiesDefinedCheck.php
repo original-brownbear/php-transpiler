@@ -1,9 +1,8 @@
 <?php
 use \PhpTranspiler\Framework\SourceElements\ClassExtraction;
-use \PhpTranspiler\Framework\PhpSourceSanitization;
 use PhpTranspiler\Framework\Checks\PropertiesDefinedCheck;
 
-class PropertiesDefinedCheckTest extends \PHPUnit_Framework_TestCase
+class PropertiesDefinedCheckTest extends PhpTranspilerTestCase
 {
     public function testClasses()
     {
@@ -16,7 +15,7 @@ class DummyClass {
   }
 }
             ';
-        $classes = (new ClassExtraction(token_get_all((new PhpSourceSanitization($source))->stringContent())))->classes();
+        $classes = (new ClassExtraction($this->sourceToNodes($source)))->classes();
         $class   = $classes['DummyClass'];
         $methods = $class->methods();
         $method  = $methods['test'];

@@ -3,14 +3,14 @@ use \PhpTranspiler\Framework\SourceElements\ClassExtraction;
 use \PhpTranspiler\Framework\SourceElements\MethodExtraction;
 use \PhpTranspiler\Framework\PhpSourceSanitization;
 
-class MethodExtractionTest extends \PHPUnit_Framework_TestCase
+class MethodExtractionTest extends PhpTranspilerTestCase
 {
     /**
      * @todo: implement example token representations
      */
     public function testMethods()
     {
-        $source  = '
+        $classes = (new ClassExtraction($this->sourceToNodes('
 <?php
 class DummyClass {
 
@@ -19,12 +19,9 @@ class DummyClass {
        return $this->name;
    }
 }
-            ';
-        $classes = (new ClassExtraction(token_get_all((new PhpSourceSanitization($source))->stringContent())))->classes();
+            ')))->classes();
         $this->assertArrayHasKey('DummyClass', $classes);
         $methods = (new MethodExtraction($classes['DummyClass']))->methods();
         $this->assertArrayHasKey('getName', $methods);
-        $methodTokens = $methods['getName']->toTokenArray();
-        $this->assertEquals('}', end($methodTokens));
     }
 }

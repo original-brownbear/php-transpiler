@@ -2,16 +2,21 @@
 namespace PhpTranspiler\Framework\SourceElements;
 
 use PhpTranspiler\Framework\Base\NamedElement;
+use PhpParser\Node;
 
-abstract class PhpElement extends TokenArrayAnalysis implements NamedElement
+abstract class PhpElement implements NamedElement
 {
-    /** @var  string $name */
-    protected $name;
+    /** @var  Node $node */
+    protected $node;
 
-    public function __construct($tokenArray, $name)
+    /**
+     * PhpElement constructor.
+     *
+     * @param $node
+     */
+    public function __construct($node)
     {
-        parent::__construct($tokenArray);
-        $this->name = $name;
+        $this->node = $node;
     }
 
     /**
@@ -20,12 +25,16 @@ abstract class PhpElement extends TokenArrayAnalysis implements NamedElement
     public function name()
     {
 
-        return $this->name;
+        return $this->node->{'name'};
     }
 
-    public function toTokenArray()
+    /**
+     * @return Node\Stmt\Class_
+     */
+    public function asNode()
     {
 
-        return $this->tokenArray;
+        return $this->node;
     }
+
 }

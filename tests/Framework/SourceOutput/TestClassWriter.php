@@ -3,20 +3,20 @@ use \PhpTranspiler\Framework\SourceElements\ClassExtraction;
 use \PhpTranspiler\Framework\PhpSourceSanitization;
 use \PhpTranspiler\Framework\SourceOutput\ClassWriter;
 
-class ClassWriterTest extends \PHPUnit_Framework_TestCase
+class ClassWriterTest extends PhpTranspilerTestCase
 {
     public function testAsString()
     {
-        $source  = '
+        $classes = (new ClassExtraction($this->sourceToNodes('
 <?php
 class DummyClass {
 
 }
-            ';
-        $classes = (new ClassExtraction(token_get_all((new PhpSourceSanitization($source))->stringContent())))->classes();
+            ')))->classes();
         $this->assertArrayHasKey('DummyClass', $classes);
         $class = $classes['DummyClass'];
         $this->assertEquals('class DummyClass{}',
-            (new ClassWriter($class))->asString());
+            (new ClassWriter($this->sourceFactory()->parser(),
+                $class))->asString());
     }
 }

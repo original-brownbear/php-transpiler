@@ -5,9 +5,12 @@ namespace PhpTranspiler\Framework\Actions;
 use PhpTranspiler\Framework\FileChecks\RequireCheck;
 use PhpTranspiler\Framework\PhpSourceSanitization;
 use PhpTranspiler\Framework\SourceDir;
+use PhpTranspiler\Framework\SourceFactory;
 
 class Transpile
 {
+    use SourceFactory;
+
     /** @var  SourceDir $outputDir */
     private $outputDir;
 
@@ -26,9 +29,15 @@ class Transpile
         $files = $this->outputDir->getFiles();
         foreach ($files as &$file) {
             if ($file->isPhpFile()) {
-                $file->setStringContent('<?php ' . (new PhpSourceSanitization((new RequireCheck($file))->fix()->stringContent()))->stringContent());
-                $file->setStringContent((new PhpSourceSanitization($file->stringContent()))->stringContent());
+                $file->setStringContent('<?php ' . ($this->sanitizeSource((new RequireCheck($file))->fix()->stringContent())));
             }
         }
+    }
+
+    protected function sanitizeSource($source)
+    {
+
+        return (new PhpSourceSanitization($this->sourceFactory()->parser(),
+            $source))->stringContent();
     }
 }

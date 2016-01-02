@@ -2,20 +2,29 @@
 
 namespace PhpTranspiler\Framework\SourceElements;
 
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Stmt\Return_;
+
 class PropertyAccess extends MethodAnalysis
 {
     public function properties()
     {
-        $tokenArray = $this->method->toTokenArray();
+        $nodes      = $this->method->asNode()->stmts;
         $properties = array();
-        foreach ($tokenArray as $i => $token) {
-            if ($tokenArray[$i][0] === T_VARIABLE && $tokenArray[$i][1] === '$this'
-                && $tokenArray[$i + 1][0] === T_OBJECT_OPERATOR
-                && $tokenArray[$i + 2][0] === T_STRING
-                && ( ! isset($tokenArray[$i + 3][1]) ||
-                     ($tokenArray[$i + 3][0] === T_WHITESPACE && ! isset($tokenArray[$i + 4][1])))
-            ) {
-                $properties[] = $tokenArray[$i + 2][1];
+        foreach ($nodes as $node) {
+            if ($node->getType() === 'Stmt_Return') {
+                /** @var Return_ $node */
+                if (($ret = $node->expr) && $node->expr->getType() === 'Expr_PropertyFetch') {
+                    /** @var PropertyFetch $ret */
+                    $properties[] = $ret->name;
+                }
+            } elseif ($node->getType() === 'Expr_Assign') {
+                /** @var Assign $node */
+                if (($ret = $node->var) && $node->var->getType() === 'Expr_PropertyFetch') {
+                    /** @var PropertyFetch $ret */
+                    $properties[] = $ret->name;
+                }
             }
         }
 

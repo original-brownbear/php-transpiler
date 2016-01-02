@@ -52,6 +52,6 @@ class PhpSourceFactory
             throw new InvalidArgumentException('Tried to generate source object from invalid PHP source.');
         }
 
-        return new PhpSource($content);
+        return new PhpSource($this->parser(), $content);
     }
 }

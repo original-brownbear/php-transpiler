@@ -1,10 +1,12 @@
 <?php
 namespace PhpTranspiler\Framework\Checks;
 
+use PhpParser\Node\Stmt\Class_;
 use PhpTranspiler\Framework\Issues\PropertyNotDefinedIssue;
 use PhpTranspiler\Framework\SourceElements\PhpClassProperty;
 use PhpTranspiler\Framework\SourceElements\PhpMethod;
 use PhpTranspiler\Framework\SourceElements\PhpClass;
+use Symfony\Component\Yaml\Parser;
 
 class PropertiesDefinedCheck
 {
@@ -36,7 +38,8 @@ class PropertiesDefinedCheck
         foreach ($classPropertiesAccessed as $property) {
             if ( ! isset($classPropertiesDefined[$property])) {
                 $issues[] = new PropertyNotDefinedIssue($this->class,
-                    $this->method, new PhpClassProperty($property, T_PUBLIC));
+                    $this->method,
+                    new PhpClassProperty($property, Class_::MODIFIER_PUBLIC));
             }
         }
 

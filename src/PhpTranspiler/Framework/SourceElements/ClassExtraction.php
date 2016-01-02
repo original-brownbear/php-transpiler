@@ -1,19 +1,32 @@
 <?php
 namespace PhpTranspiler\Framework\SourceElements;
 
-class ClassExtraction extends ElementExtraction
+use PhpParser\Node;
+
+class ClassExtraction
 {
+    /** @var Node[] $nodes */
+    private $nodes;
+
+    /**
+     * ClassExtraction constructor.
+     *
+     * @param Node[] $nodes
+     */
+    public function __construct($nodes)
+    {
+        $this->nodes = $nodes;
+    }
+
     /**
      * @return PhpClass[]
      */
     public function classes()
     {
         $classes = array();
-        foreach ($this->tokenArray as $i => $token) {
-            if ($token[0] === T_CLASS) {
-                $className           = $this->tokenArray[$i + 2][1];
-                $classes[$className] = new PhpClass(
-                    $this->extractCurlyBracketsContent($i), $className);
+        foreach ($this->nodes as $node) {
+            if ($node->getType() === 'Stmt_Class') {
+                $classes[$node->name] = new PhpClass($node);
             }
         }
 

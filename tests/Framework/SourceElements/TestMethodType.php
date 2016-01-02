@@ -4,11 +4,11 @@ use \PhpTranspiler\Framework\SourceElements\ClassExtraction;
 use \PhpTranspiler\Framework\SourceElements\MethodExtraction;
 use \PhpTranspiler\Framework\PhpSourceSanitization;
 
-class MethodTypeTest extends \PHPUnit_Framework_TestCase
+class MethodTypeTest extends PhpTranspilerTestCase
 {
     public function testType()
     {
-        $source  = '
+        $classes = (new ClassExtraction($this->sourceToNodes('
 <?php
 class DummyClass {
 
@@ -17,8 +17,7 @@ class DummyClass {
        return $this->name;
    }
 }
-            ';
-        $classes = (new ClassExtraction(token_get_all((new PhpSourceSanitization($source))->stringContent())))->classes();
+            ')))->classes();
         $this->assertArrayHasKey('DummyClass', $classes);
         $methods = (new MethodExtraction($classes['DummyClass']))->methods();
         $this->assertEquals(PHP_T_GETTER_METHOD,

@@ -1,13 +1,13 @@
 <?php
+use PhpParser\Node\Stmt\Class_;
 use \PhpTranspiler\Framework\SourceElements\ClassExtraction;
 use \PhpTranspiler\Framework\SourceElements\PropertyDefinitions;
-use \PhpTranspiler\Framework\PhpSourceSanitization;
 
-class PropertyDefinitionsTest extends \PHPUnit_Framework_TestCase
+class PropertyDefinitionsTest extends PhpTranspilerTestCase
 {
     public function testMethods()
     {
-        $source  = '
+        $classes = (new ClassExtraction($this->sourceToNodes('
 <?php
 class DummyClass {
 
@@ -20,15 +20,17 @@ class DummyClass {
        return $this->name;
    }
 }
-            ';
-        $classes = (new ClassExtraction(token_get_all((new PhpSourceSanitization($source))->stringContent())))->classes();
+            ')))->classes();
         $this->assertArrayHasKey('DummyClass', $classes);
         $properties = (new PropertyDefinitions($classes['DummyClass']))->properties();
         $this->assertArrayHasKey('a', $properties);
         $this->assertArrayHasKey('b', $properties);
         $this->assertArrayHasKey('c', $properties);
-        $this->assertEquals(T_PRIVATE, $properties['a']->accessLevel());
-        $this->assertEquals(T_PROTECTED, $properties['b']->accessLevel());
-        $this->assertEquals(T_PUBLIC, $properties['c']->accessLevel());
+        $this->assertEquals(Class_::MODIFIER_PRIVATE,
+            $properties['a']->accessLevel());
+        $this->assertEquals(Class_::MODIFIER_PROTECTED,
+            $properties['b']->accessLevel());
+        $this->assertEquals(Class_::MODIFIER_PUBLIC,
+            $properties['c']->accessLevel());
     }
 }

@@ -1,6 +1,8 @@
 <?php
 namespace PhpTranspiler\Framework\SourceElements;
 
+use PhpParser\Node;
+
 class PhpClass extends PhpElement
 {
     /**

@@ -2,6 +2,8 @@
 
 namespace PhpTranspiler\Framework\SourceElements;
 
+use PhpParser\Node\Stmt\Property;
+
 class PropertyDefinitions extends ClassAnalysis
 {
     /**
@@ -9,20 +11,18 @@ class PropertyDefinitions extends ClassAnalysis
      */
     public function properties()
     {
+        $nodes      = $this->class->asNode()->stmts;
         $properties = array();
-        $tokens     = $this->class->toTokenArray();
-        foreach ($tokens as $i => $token) {
-            if (in_array($tokens[$i][0], array(
-                    T_PRIVATE,
-                    T_PROTECTED,
-                    T_PUBLIC
-                )) && $tokens[$i + 2][0] === T_VARIABLE
-            ) {
-                $propertyName              = str_replace('$', '',
-                    $tokens[$i + 2][1]);
-                $properties[$propertyName] = new PhpClassProperty($propertyName,
-                    $tokens[$i][0]);
+        foreach ($nodes as $node) {
+            if ($node->getType() === 'Stmt_Property') {
+                /**
+                 * @var Property $node
+                 * @var string   $name
+                 */
+                $name              = isset($node->props['name']) ? $node->props['name'] : $node->props[0]->name;
+                $properties[$name] = new PhpClassProperty($name, $node->type);
             }
+
         }
 
         return $properties;

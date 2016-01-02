@@ -2,11 +2,11 @@
 use \PhpTranspiler\Framework\SourceElements\ClassExtraction;
 use \PhpTranspiler\Framework\PhpSourceSanitization;
 
-class PhpClassTest extends \PHPUnit_Framework_TestCase
+class PhpClassTest extends PhpTranspilerTestCase
 {
     public function testMethods()
     {
-        $source  = '
+        $classes = (new ClassExtraction($this->sourceToNodes('
 <?php
 class DummyClass {
 
@@ -15,12 +15,9 @@ class DummyClass {
        return $this->name;
    }
 }
-            ';
-        $classes = (new ClassExtraction(token_get_all((new PhpSourceSanitization($source))->stringContent())))->classes();
+            ')))->classes();
         $this->assertArrayHasKey('DummyClass', $classes);
         $methods = $classes['DummyClass']->methods();
         $this->assertArrayHasKey('getName', $methods);
-        $tokenArray = $methods['getName']->toTokenArray();
-        $this->assertEquals('}', end($tokenArray));
     }
 }

@@ -4,6 +4,7 @@ namespace PhpTranspiler\Framework\SourceOperations;
 use PhpTranspiler\Framework\SourceElements\ClassAnalysis;
 use PhpTranspiler\Framework\SourceElements\PhpClass;
 use PhpTranspiler\Framework\SourceElements\PhpClassProperty;
+use PhpParser\Node\Stmt\Property;
 
 class AddClassProperty extends ClassAnalysis
 {
@@ -27,23 +28,10 @@ class AddClassProperty extends ClassAnalysis
      */
     public function adjustedClass()
     {
-        $tokenArray = $this->class->toTokenArray();
-        array_shift($tokenArray);
-        array_unshift($tokenArray, ';');
-        array_unshift($tokenArray,
-            array(T_VARIABLE, '$' . $this->property->name()));
-        array_unshift($tokenArray, array(T_WHITESPACE, ' '));
-        $accessLevelStrings = array(
-            T_PRIVATE   => 'private',
-            T_PROTECTED => 'protected',
-            T_PUBLIC    => 'public'
-        );
-        array_unshift($tokenArray, array(
-            $this->property->accessLevel(),
-            $accessLevelStrings[$this->property->accessLevel()]
-        ));
-        array_unshift($tokenArray, '{');
+        $node          = $this->class->asNode();
+        $node->stmts[] = new Property($this->property->accessLevel(),
+            array('name' => $this->property->name()));
 
-        return new PhpClass($tokenArray, $this->class->name());
+        return new PhpClass($node);
     }
 }

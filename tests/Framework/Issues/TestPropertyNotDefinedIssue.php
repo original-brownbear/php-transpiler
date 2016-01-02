@@ -1,14 +1,14 @@
 <?php
+use PhpParser\Node\Stmt\Class_;
 use PhpTranspiler\Framework\Issues\PropertyNotDefinedIssue;
 use \PhpTranspiler\Framework\SourceElements\ClassExtraction;
-use \PhpTranspiler\Framework\PhpSourceSanitization;
 use PhpTranspiler\Framework\SourceElements\PhpClassProperty;
 
-class PropertyNotDefinedIssueTest extends \PHPUnit_Framework_TestCase
+class PropertyNotDefinedIssueTest extends PhpTranspilerTestCase
 {
     public function testAdjustedClass()
     {
-        $source        = '
+        $classes       = (new ClassExtraction($this->sourceToNodes('
 <?php
 class DummyClass {
 
@@ -16,12 +16,11 @@ class DummyClass {
     $this->foo = "x";
   }
 }
-            ';
-        $classes       = (new ClassExtraction(token_get_all((new PhpSourceSanitization($source))->stringContent())))->classes();
+            ')))->classes();
         $class         = $classes['DummyClass'];
         $methods       = $class->methods();
         $method        = $methods['a'];
-        $property      = new PhpClassProperty('x', T_PUBLIC);
+        $property      = new PhpClassProperty('x', Class_::MODIFIER_PUBLIC);
         $subject       = new PropertyNotDefinedIssue($class,
             $method, $property);
         $adjustedClass = $subject->adjustedClass();

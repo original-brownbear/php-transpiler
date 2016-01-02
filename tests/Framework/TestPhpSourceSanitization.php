@@ -1,7 +1,7 @@
 <?php
 use \PhpTranspiler\Framework\PhpSourceSanitization;
 
-class PhpSourceSanitizationTest extends \PHPUnit_Framework_TestCase
+class PhpSourceSanitizationTest extends PhpTranspilerTestCase
 {
     public function testStringContent()
     {
@@ -11,15 +11,19 @@ class PhpSourceSanitizationTest extends \PHPUnit_Framework_TestCase
                 $phpSanitized        = "echo 'bar';";
                 $sourceCode          = "<?php\n" . $php;
                 $sourceCodeSanitized = '<?php ' . $phpSanitized;
+                $parser              = $this->sourceFactory()->parser();
                 $this->assertEquals($sourceCodeSanitized,
-                    (new PhpSourceSanitization(str_replace(" ", $whiteSpace,
-                        $sourceCode)))->stringContent());
+                    (new PhpSourceSanitization($parser,
+                        str_replace(" ", $whiteSpace,
+                            $sourceCode)))->stringContent());
                 $this->assertEquals($sourceCodeSanitized . '?> <p>strip this</p>',
-                    (new PhpSourceSanitization(str_replace(" ", $whiteSpace,
-                        $sourceCode . '?> <p>strip this</p>')))->stringContent());
+                    (new PhpSourceSanitization($parser,
+                        str_replace(" ", $whiteSpace,
+                            $sourceCode . '?> <p>strip this</p>')))->stringContent());
                 $this->assertEquals($sourceCodeSanitized . '?> <p>strip this</p>' . $sourceCodeSanitized,
-                    (new PhpSourceSanitization(str_replace(" ", $whiteSpace,
-                        $sourceCode . '?> <p>strip this</p>' . $sourceCode)))->stringContent());
+                    (new PhpSourceSanitization($parser,
+                        str_replace(" ", $whiteSpace,
+                            $sourceCode . '?> <p>strip this</p>' . $sourceCode)))->stringContent());
             }
         }
     }

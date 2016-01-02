@@ -1,12 +1,17 @@
 <?php
 namespace PhpTranspiler\Framework\SourceElements;
 
-class MethodExtraction extends ElementExtraction
+use PhpParser\Node;
+
+class MethodExtraction
 {
+    /** @var PhpClass $class */
+    private $class;
+
     /** @param PhpClass $class */
     public function __construct($class)
     {
-        parent::__construct($class->toTokenArray());
+        $this->class = $class;
     }
 
     /**
@@ -15,12 +20,11 @@ class MethodExtraction extends ElementExtraction
     public function methods()
     {
         $methods = array();
-
-        foreach ($this->tokenArray as $i => $token) {
-            if ($token[0] === T_FUNCTION) {
-                $methodName           = $this->tokenArray[$i + 2][1];
-                $methods[$methodName] = new PhpMethod($this->extractCurlyBracketsContent($i),
-                    $methodName);
+        $nodes   = $this->class->asNode()->stmts;
+        foreach ($nodes as $node) {
+            if ($node->getType() === 'Stmt_ClassMethod') {
+                /** @var Node\Stmt\ClassMethod $node */
+                $methods[$node->name] = new PhpMethod($node);
             }
         }
 
