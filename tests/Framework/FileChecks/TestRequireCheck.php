@@ -9,6 +9,7 @@ class RequireCheckTest extends PhpTranspilerTestCase
     public function testRequireUses()
     {
         $this->getRequireCheck();
+        $this->getRequireCheck(true);
     }
 
     public function testRequireFix()
@@ -19,12 +20,19 @@ class RequireCheckTest extends PhpTranspilerTestCase
 
     }
 
-    private function getRequireCheck()
+    private function getRequireCheck($require_once = false)
     {
-
-        $sourceParent  = '
+        $vfs           = vfsStream::setup('/src');
+        $sourceFactory = $this->sourceFactory();
+        $includedFile  = new SourceFile($sourceFactory,
+            vfsStream::newFile('include.php')->setContent('
 <?php
-require "include.php";
+class Foo{}
+        ')->at($vfs)->url());
+        $parentFile    = new SourceFile($sourceFactory,
+            vfsStream::newFile('parent.php')->setContent('
+<?php
+require' . ($require_once ? '_once' : '') . ' "include.php";
 
 class DummyClass {
   public function test(){
@@ -32,24 +40,15 @@ class DummyClass {
     return $this->a;
   }
 }
-            ';
-        $sourceInclude = '
-<?php
-class Foo{}
-        ';
-
-        $source_path   = '/src';
-        $vfs           = vfsStream::setup($source_path);
-        $parentPath    = 'parent.php';
-        $file          = vfsStream::newFile($parentPath)->setContent($sourceParent)->at($vfs);
-        $fileIncluded  = vfsStream::newFile('include.php')->setContent($sourceInclude)->at($vfs);
-        $sourceFactory = $this->sourceFactory();
-        $parentFile    = new SourceFile($sourceFactory, $file->url());
-        $includedFile  = new SourceFile($sourceFactory, $fileIncluded->url());
+            ')->at($vfs)->url());
         $check         = new RequireCheck($parentFile);
         $includes      = $check->requireUses();
-        $this->assertCount(1, $includes);
-        $this->assertEquals($includedFile, end($includes));
+        if ($require_once) {
+            $this->assertCount(0, $includes);
+        } else {
+            $this->assertCount(1, $includes);
+            $this->assertEquals($includedFile, end($includes));
+        }
 
         return $check;
     }
