@@ -35,12 +35,13 @@ class SourceDir extends SourceLocation
         }
         while (false !== ($file = readdir($dir))) {
             if (($file != '.') && ($file != '..')) {
-                if (is_dir($this->url . '/' . $file)) {
+                $srcPath = ($src ? $src : $this->url) . '/' . $file;
+                if (is_dir($srcPath)) {
                     $this->copyTo(
                         $path . '/' . $file,
-                        $this->url . '/' . $file);
+                        $srcPath);
                 } else {
-                    copy($this->url . '/' . $file, $path . '/' . $file);
+                    copy($srcPath, $path . '/' . $file);
                 }
             }
         }
