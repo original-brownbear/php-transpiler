@@ -3,6 +3,7 @@
 namespace PhpTranspiler\Framework\FileChecks;
 
 use PhpParser\Node\Expr\Include_;
+use PhpParser\PrettyPrinter\Standard;
 use PhpTranspiler\Framework\SourceFile;
 use PhpParser\PrettyPrinter;
 
@@ -42,19 +43,21 @@ class RequireCheck
         $positions = array_keys($fixes);
         $slices    = array();
         $offset    = 0;
-        while ((bool)$positions) {
-            $length   = array_shift($positions) - $offset;
-            $slices[] = array_slice($tokens, $offset, $length);
-            $slices[] = array_slice($tokens, $offset + 1 + $length);
-            $offset += $length;
+        if ((bool)$fixes === true) {
+            while ((bool)$positions) {
+                $length   = array_shift($positions) - $offset;
+                $slices[] = array_slice($tokens, $offset, $length);
+                $slices[] = array_slice($tokens, $offset + 1 + $length);
+                $offset += $length;
+            }
+            $res = array();
+            while ($fixes) {
+                $res = array_merge($res, array_shift($slices));
+                $res = array_merge($res, array_shift($fixes)->sourceTree());
+                $res = array_merge($res, array_shift($slices));
+            }
+            $this->sourceFile->setStringContent((new Standard)->prettyPrintFile($res));
         }
-        $res = array();
-        while ($fixes) {
-            $res = array_merge($res, array_shift($slices));
-            $res = array_merge($res, array_shift($fixes)->sourceTree());
-            $res = array_merge($res, array_shift($slices));
-        }
-        $this->sourceFile->setStringContent((new PrettyPrinter\Standard)->prettyPrint($res));
 
         return $this->sourceFile;
     }

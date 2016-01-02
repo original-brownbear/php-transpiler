@@ -29,7 +29,7 @@ class Transpile
         $files = $this->outputDir->getFiles();
         foreach ($files as &$file) {
             if ($file->isPhpFile()) {
-                $file->setStringContent('<?php ' . ($this->sanitizeSource((new RequireCheck($file))->fix()->stringContent())));
+                $file->setStringContent(($this->sanitizeSource((new RequireCheck($file))->fix()->stringContent())));
             }
         }
     }

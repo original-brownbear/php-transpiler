@@ -36,7 +36,9 @@ class PhpSourceSanitization
         $tokens          = token_get_all(($hasOpeningTag ? '<?php ' : '') . $this->source);
         $sanitizedTokens = array();
         foreach ($tokens as $index => $token) {
-            if (isset($token[1])) {
+            if (isset($token[1]) && in_array($token[0],
+                    array(T_WHITESPACE, T_LINE, T_OPEN_TAG, T_INLINE_HTML))
+            ) {
                 $token[1] = str_replace("\n", ' ', $token[1]);
                 $token[1] = str_replace("\t", ' ', $token[1]);
                 $token[1] = preg_replace('#\s+#', ' ', $token[1]);

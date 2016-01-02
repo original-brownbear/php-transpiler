@@ -14,10 +14,13 @@ class RequireCheckTest extends PhpTranspilerTestCase
 
     public function testRequireFix()
     {
-        $classes = $this->getRequireCheck()->fix()->getClasses();
+        $fixedFile = $this->getRequireCheck()->fix();
+        $classes   = $fixedFile->getClasses();
         $this->assertArrayHasKey('DummyClass', $classes);
         $this->assertArrayHasKey('Foo', $classes);
-
+        $sanitizedSource = $this->sanitizeSource($fixedFile->stringContent());
+        $this->assertNotFalse(strpos($sanitizedSource, "x\n"));
+        $this->assertFalse(strpos($sanitizedSource, '?>'));
     }
 
     private function getRequireCheck($require_once = false)
@@ -38,6 +41,10 @@ class DummyClass {
   public function test(){
 
     return $this->a;
+  }
+
+  public function foo(){
+    return "x\n";
   }
 }
             ')->at($vfs)->url());

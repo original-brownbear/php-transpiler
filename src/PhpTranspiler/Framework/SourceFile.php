@@ -19,7 +19,8 @@ class SourceFile extends SourceLocation
      */
     public function stringContent()
     {
-        return stream_get_contents($this->getHandle());
+        return preg_replace('#^\s+#', '',
+            stream_get_contents($this->getHandle()));
     }
 
     /**
