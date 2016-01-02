@@ -25,7 +25,9 @@ class PhpClassProperty implements NamedElement
         ), true)
         ) {
             throw new \InvalidArgumentException (
-                'Invalid Access level, must be either PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC,PhpParser\Node\Stmt\Class_::MODIFIER_PROTECTED or PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE');
+                'Invalid Access level, must be either
+                PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC,PhpParser\Node\Stmt\Class_::MODIFIER_PROTECTED or PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE
+                instead I got ' . $accessLevel);
         }
         $this->accessLevel = $accessLevel;
     }
