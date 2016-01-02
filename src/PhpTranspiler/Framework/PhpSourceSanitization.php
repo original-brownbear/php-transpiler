@@ -18,8 +18,9 @@ class PhpSourceSanitization
             if (isset($token[1])) {
                 $token[1] = str_replace("\n", ' ', $token[1]);
                 $token[1] = str_replace("\t", ' ', $token[1]);
+                $token[1] = preg_replace('#\s+#', ' ', $token[1]);
                 if (isset($tokens[$index - 1]) && in_array($tokens[$index - 1],
-                        array('{', ';'), true)
+                        array('{', ';', '}'), true)
                 ) {
                     $token[1] = str_replace(' ', '', $token[1]);
                 }
