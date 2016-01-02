@@ -16,7 +16,7 @@ abstract class SourceLocation
     {
         $this->url = $path;
         if (false === $this->checkValidPath()) {
-            throw new InvalidArgumentException($this->invalidPathMessage());
+            throw new InvalidArgumentException($this->invalidPathMessage() . ' Received: ' . $this->url);
         }
         $this->sourceFactory = &$sourceFactory;
     }

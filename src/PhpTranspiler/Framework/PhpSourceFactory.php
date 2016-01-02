@@ -1,7 +1,6 @@
 <?php
 namespace PhpTranspiler\Framework;
 
-use Symfony\Component\Console\Exception\InvalidArgumentException;
 use PhpParser\Parser;
 
 class PhpSourceFactory
@@ -38,20 +37,5 @@ class PhpSourceFactory
         }
 
         return ! empty($foundOpeningTag);
-    }
-
-    /**
-     * @param SourceFile $sourceFile
-     *
-     * @return PhpSource
-     */
-    public function phpSource($sourceFile)
-    {
-        $content = $sourceFile->stringContent();
-        if ( ! $this->isValid($content)) {
-            throw new InvalidArgumentException('Tried to generate source object from invalid PHP source.');
-        }
-
-        return new PhpSource($this->parser(), $content);
     }
 }

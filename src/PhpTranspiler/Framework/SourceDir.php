@@ -34,7 +34,7 @@ class SourceDir extends SourceLocation
             mkdir($path, 0777, true);
         }
         while (false !== ($file = readdir($dir))) {
-            if (($file != '.') && ($file != '..')) {
+            if ($file[0] !== '.') {
                 $srcPath = ($src ? $src : $this->url) . '/' . $file;
                 if (is_dir($srcPath)) {
                     $this->copyTo(

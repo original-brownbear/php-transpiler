@@ -28,6 +28,7 @@ class RequireCheck
             /** @var $node Include_ */
             if ($node->getType() === 'Expr_Include' && in_array($node->type,
                     array(Include_::TYPE_REQUIRE, Include_::TYPE_INCLUDE))
+                && $node->expr->getType() === 'Scalar_String'
             ) {
                 $hasRequire[$key] = $this->sourceFile->relativeFile($node->expr->{'value'});
             }
