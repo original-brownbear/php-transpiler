@@ -2,6 +2,7 @@
 
 namespace PhpTranspiler\Framework\Actions;
 
+use PhpTranspiler\Framework\FileChecks\RequireCheck;
 use PhpTranspiler\Framework\PhpSourceSanitization;
 use PhpTranspiler\Framework\SourceDir;
 
@@ -24,6 +25,7 @@ class Transpile
     {
         $files = $this->outputDir->getFiles();
         foreach ($files as $file) {
+            $file = (new RequireCheck($file))->fix();
             $file->setStringContent((new PhpSourceSanitization($file->stringContent()))->stringContent());
         }
     }
