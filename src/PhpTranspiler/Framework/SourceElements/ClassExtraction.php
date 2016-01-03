@@ -2,6 +2,7 @@
 namespace PhpTranspiler\Framework\SourceElements;
 
 use PhpParser\Node;
+use PhpParser\Node\Stmt\Class_;
 
 class ClassExtraction
 {
@@ -26,6 +27,7 @@ class ClassExtraction
         $classes = array();
         foreach ($this->nodes as $node) {
             if ($node->getType() === 'Stmt_Class') {
+                /** @var Class_ $node */
                 $classes[$node->name] = new PhpClass($node);
             }
         }

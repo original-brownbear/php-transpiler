@@ -3,10 +3,8 @@ namespace PhpTranspiler\Command;
 
 require_once dirname(__DIR__) . '/constants.php';
 use PhpTranspiler\Framework\Actions\Transpile;
-use PhpTranspiler\Framework\PhpSourceFactory;
 use PhpTranspiler\Framework\SourceDir;
 use PhpTranspiler\Framework\SourceDirView;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

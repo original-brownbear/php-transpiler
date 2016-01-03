@@ -6,7 +6,6 @@ use PhpTranspiler\Framework\Issues\PropertyNotDefinedIssue;
 use PhpTranspiler\Framework\SourceElements\PhpClassProperty;
 use PhpTranspiler\Framework\SourceElements\PhpMethod;
 use PhpTranspiler\Framework\SourceElements\PhpClass;
-use Symfony\Component\Yaml\Parser;
 
 class PropertiesDefinedCheck
 {
