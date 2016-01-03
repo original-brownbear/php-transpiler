@@ -5,6 +5,7 @@ use PhpTranspiler\Framework\SourceElements\ClassExtraction;
 
 class SourceFile extends SourceLocation
 {
+    use SourceToNodes;
     /**
      * @return bool true if the file contains valid PHP code
      */
@@ -57,7 +58,7 @@ class SourceFile extends SourceLocation
     public function sourceTree()
     {
 
-        return $this->sourceFactory->parser()->parse($this->stringContent());
+        return $this->sourceToNodes($this->stringContent());
     }
 
     /**

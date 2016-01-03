@@ -18,7 +18,6 @@ class DummyClass {
 }
             ')))->classes();
         $this->assertArrayHasKey('DummyClass', $classes);
-        $methods = (new MethodExtraction($classes['DummyClass']))->methods();
-        $this->assertArrayHasKey('getName', $methods);
+        $this->assertArrayHasKey('getName', $classes['DummyClass']->methods());
     }
 }

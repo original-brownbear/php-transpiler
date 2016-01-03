@@ -16,7 +16,6 @@ class DummyClass {
         $this->assertArrayHasKey('DummyClass', $classes);
         $class = $classes['DummyClass'];
         $this->assertEquals('class DummyClass{}',
-            (new ClassWriter($this->sourceFactory()->parser(),
-                $class))->asString());
+            (new ClassWriter($class))->asString());
     }
 }

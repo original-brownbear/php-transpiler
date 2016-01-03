@@ -3,24 +3,19 @@ namespace PhpTranspiler\Framework\SourceOutput;
 
 use PhpParser\PrettyPrinter\Standard;
 
-use PhpTranspiler\Framework\PhpSourceSanitization;
 use PhpTranspiler\Framework\SourceElements\ClassAnalysis;
 use PhpParser\Parser;
+use PhpTranspiler\Framework\SourceWriter;
 
 class ClassWriter extends ClassAnalysis
 {
-    /** @var Parser $parser */
-    private $parser;
+    use SourceWriter;
 
-    public function __construct($parser, $class)
-    {
-        parent::__construct($class);
-        $this->parser = $parser;
-    }
-
+    /**
+     * @return string
+     */
     public function asString()
     {
-        return (new PhpSourceSanitization($this->parser,
-            (new Standard())->prettyPrint(array($this->class->asNode()))))->stringContent();
+        return $this->sanitizeSource((new Standard())->prettyPrint(array($this->class->asNode())));
     }
 }

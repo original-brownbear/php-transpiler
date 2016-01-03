@@ -19,7 +19,7 @@ class DummyClass {
 }
             ')))->classes();
         $this->assertArrayHasKey('DummyClass', $classes);
-        $methods = (new MethodExtraction($classes['DummyClass']))->methods();
+        $methods = $classes['DummyClass']->methods();
         $this->assertEquals(PHP_T_GETTER_METHOD,
             (new MethodType($methods['getName']))->type());
     }
