@@ -1,6 +1,5 @@
 <?php
 use PhpParser\PrettyPrinter\Standard;
-use PhpTranspiler\Framework\PhpSourceSanitization;
 use PhpParser\PrettyPrinter;
 use PhpTranspiler\Framework\SourceFile;
 use PhpTranspiler\Framework\SourceToNodes;
