@@ -14,9 +14,9 @@ abstract class FileFilter
      *
      * @param SourceFile $file
      */
-    public function __construct(&$file)
+    public function __construct($file)
     {
-        $this->file = &$file;
+        $this->file = $file;
     }
 
     public abstract function run();
