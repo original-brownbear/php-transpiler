@@ -15,7 +15,7 @@ Implemented features:
 Run against files test.php and include.php in the same directory given as:
 
 test.php
-```
+```php
 <?php
 
 require 'include.php';
@@ -31,7 +31,7 @@ echo (new Foo)->msg();
 
 include.php
 
-```
+```php
 <?php
 
 class Bar {
@@ -44,7 +44,7 @@ class Bar {
 
 Transpiles into a single test.php that contains:
 
-```
+```php
 <?php  class Bar{public function msg(){return 'Example Return Message
 ';}}class Foo{public function msg(){return (new Bar())->msg();}}echo (new Foo())->msg();
 ```
