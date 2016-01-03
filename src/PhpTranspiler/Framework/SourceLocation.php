@@ -1,7 +1,7 @@
 <?php
 namespace PhpTranspiler\Framework;
 
-use InvalidArgumentException;
+use Symfony\Component\Console\Exception\InvalidArgumentException;
 
 abstract class SourceLocation
 {
