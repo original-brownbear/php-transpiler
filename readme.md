@@ -1,6 +1,40 @@
 # PHP Transpiler
 
-No functionality yet :/
+This tool transpiles PHP code into optimized PHP code.
+
+Implemented features:
+
+1. Inlines `require` and `include` statements.
+
+2. Strips unnecessary whitespaces from the code.
+
+
+## Installation
+
+To install globally via composer run
+ 
+`composer global require composer require brownbear/php-transpiler`
+
+## Usage
+
+### CLI
+
+Either analyze a source file or directory via:
+
+```
+php-transpiler analyze /src
+```
+
+or transpile a source directory into `/out` via:
+
+```
+php-transpiler transpile /src /out
+```
+
+### Library
+
+Not documented yet :/
+
 
 [![Latest Stable Version](https://poser.pugx.org/brownbear/php-transpiler/v/stable)](https://packagist.org/packages/brownbear/php-transpiler)
 [![Latest Unstable Version](https://poser.pugx.org/brownbear/php-transpiler/v/unstable)](//packagist.org/packages/brownbear/php-transpiler)
