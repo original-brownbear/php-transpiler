@@ -8,14 +8,52 @@ Implemented features:
 
 2. Strips unnecessary whitespaces from the code.
 
+## Example
+
+Run against files test.php and include.php in the same directory given as:
+
+test.php
+```
+<?php
+
+require 'include.php';
+
+class Foo {
+    public function msg() {
+        return (new Bar)->msg();
+    }
+}
+
+echo (new Foo)->msg();
+```
+
+include.php
+
+```
+<?php
+
+class Bar {
+    public function msg() {
+        return "Example Return Message\n";  
+    }
+}
+
+```
+
+Transpiles into a single test.php that contains:
+
+```
+<?php  class Bar{public function msg(){return 'Example Return Message
+';}}class Foo{public function msg(){return (new Bar())->msg();}}echo (new Foo())->msg();
+```
+
+## Usage
 
 ## Installation
 
 To install globally via composer run
  
 `composer global require brownbear/php-transpiler`
-
-## Usage
 
 ### CLI
 
