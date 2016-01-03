@@ -13,7 +13,7 @@ Implemented features:
 
 To install globally via composer run
  
-`composer global require composer require brownbear/php-transpiler`
+`composer global require brownbear/php-transpiler`
 
 ## Usage
 
