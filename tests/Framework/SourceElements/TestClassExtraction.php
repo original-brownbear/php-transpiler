@@ -4,9 +4,6 @@ use \PhpTranspiler\Framework\PhpSourceSanitization;
 
 class ClassExtractionTest extends PhpTranspilerTestCase
 {
-    /**
-     * @todo: implement example token representations
-     */
     public function testClasses()
     {
         $source  = "<?php\n" . $this->emptyClassString('DummyClass');

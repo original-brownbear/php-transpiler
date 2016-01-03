@@ -5,9 +5,6 @@ use \PhpTranspiler\Framework\PhpSourceSanitization;
 
 class MethodExtractionTest extends PhpTranspilerTestCase
 {
-    /**
-     * @todo: implement example token representations
-     */
     public function testMethods()
     {
         $classes = (new ClassExtraction($this->sourceToNodes('
