@@ -4,6 +4,7 @@ use PhpTranspiler\Framework\PhpSourceSanitization;
 use PhpParser\PrettyPrinter;
 use PhpTranspiler\Framework\SourceFile;
 use PhpTranspiler\Framework\SourceToNodes;
+use PhpParser\Node\Stmt\Class_;
 
 class PhpTranspilerTestCase extends \PHPUnit_Framework_TestCase
 {
@@ -16,19 +17,7 @@ class PhpTranspilerTestCase extends \PHPUnit_Framework_TestCase
      */
     protected function emptyClassString($name)
     {
-        return (new Standard)->prettyPrint(array((new PhpParser\Node\Stmt\Class_($name))));
-    }
-
-    /**
-     * @param string $source
-     *
-     * @return string
-     */
-    protected function sanitizeSource($source)
-    {
-
-        return (new PhpSourceSanitization($this->sourceFactory()->parser(),
-            $source))->stringContent();
+        return (new Standard)->prettyPrint([(new Class_($name))]);
     }
 
     /**
