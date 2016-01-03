@@ -8,11 +8,19 @@ class SourceFileView
     /** @var  SourceFile $source_dir */
     private $sourceFile;
 
+    /**
+     * SourceFileView constructor.
+     *
+     * @param SourceFile $sourceFile
+     */
     public function __construct($sourceFile)
     {
         $this->sourceFile = $sourceFile;
     }
 
+    /**
+     * @return string
+     */
     public function render()
     {
         $classes     = $this->sourceFile->getClasses();

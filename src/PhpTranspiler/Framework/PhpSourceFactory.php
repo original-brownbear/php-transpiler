@@ -26,6 +26,11 @@ class PhpSourceFactory
         return $this->parser;
     }
 
+    /**
+     * @param string $source
+     *
+     * @return bool
+     */
     public function isValid($source)
     {
         $tokens = token_get_all($source);

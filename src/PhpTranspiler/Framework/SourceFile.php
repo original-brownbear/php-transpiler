@@ -60,6 +60,11 @@ class SourceFile extends SourceLocation
         return $this->sourceFactory->parser()->parse($this->stringContent());
     }
 
+    /**
+     * @param string $pathRelative path of the file relative to this file
+     *
+     * @return SourceFile
+     */
     public function relativeFile($pathRelative)
     {
 
@@ -67,16 +72,27 @@ class SourceFile extends SourceLocation
             dirname($this->url) . '/' . $pathRelative);
     }
 
+    /**
+     * @return string
+     */
     protected function invalidPathMessage()
     {
         return 'Given path does not contain a file.';
     }
 
+    /**
+     * @return bool
+     */
     protected function checkValidPath()
     {
         return is_file($this->url);
     }
 
+    /**
+     * @param string $mode
+     *
+     * @return resource
+     */
     protected function getHandle($mode = 'r')
     {
         return fopen($this->url, $mode);

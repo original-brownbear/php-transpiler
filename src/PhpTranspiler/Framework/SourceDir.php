@@ -27,6 +27,10 @@ class SourceDir extends SourceLocation
         return $files;
     }
 
+    /**
+     * @param string      $path
+     * @param null|string $src
+     */
     public function copyTo($path, $src = null)
     {
         $dir = $src ? opendir($src) : $this->getHandle();
@@ -48,17 +52,26 @@ class SourceDir extends SourceLocation
         closedir($dir);
     }
 
+    /**
+     * @return string
+     */
     protected function invalidPathMessage()
     {
         return 'Given path does not contain a directory.';
     }
 
+    /**
+     * @return bool
+     */
     protected function checkValidPath()
     {
 
         return is_dir($this->url);
     }
 
+    /**
+     * @return resource
+     */
     protected function getHandle()
     {
         return opendir($this->url);

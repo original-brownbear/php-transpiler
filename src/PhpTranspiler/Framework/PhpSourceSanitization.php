@@ -1,6 +1,7 @@
 <?php
 namespace PhpTranspiler\Framework;
 
+use PhpParser\Node;
 use PhpParser\Parser;
 
 class PhpSourceSanitization
@@ -17,6 +18,9 @@ class PhpSourceSanitization
         $this->source = $source;
     }
 
+    /**
+     * @return string
+     */
     public function stringContent()
     {
         $this->stripWhiteSpaces();
@@ -24,12 +28,18 @@ class PhpSourceSanitization
         return $this->source;
     }
 
+    /**
+     * @return null|Node[]
+     */
     public function asNodes()
     {
 
         return $this->parser->parse($this->stringContent());
     }
 
+    /**
+     * Removes all unnecessary whitespaces from @see source
+     */
     private function stripWhiteSpaces()
     {
         $hasOpeningTag   = strpos($this->source, '<?php') === false;
