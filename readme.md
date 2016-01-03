@@ -49,6 +49,8 @@ Transpiles into a single test.php that contains:
 ';}}class Foo{public function msg(){return (new Bar())->msg();}}echo (new Foo())->msg();
 ```
 
+For more examples and details on this project see the project [page](http://obrown.io/php-transpiler.html).
+
 ## Usage
 
 ## Installation
