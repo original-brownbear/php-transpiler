@@ -42,10 +42,11 @@ class PhpSourceSanitization
                 $token[1] = str_replace("\n", ' ', $token[1]);
                 $token[1] = str_replace("\t", ' ', $token[1]);
                 $token[1] = preg_replace('#\s+#', ' ', $token[1]);
-                if (isset($tokens[$index - 1]) && in_array($tokens[$index - 1],
-                        array('{', ';', '}'), true)
+                if (isset($tokens[$index - 1]) && (in_array($tokens[$index - 1],
+                            array('{', ';', '}'),
+                            true) || (isset(end($sanitizedTokens)[1]) && end($sanitizedTokens)[1] === '<?php '))
                 ) {
-                    $token[1] = str_replace(' ', '', $token[1]);
+                    continue;
                 }
                 if (isset($tokens[$index + 1]) && in_array($tokens[$index + 1],
                         array('{', ';', '}'), true)

@@ -8,6 +8,8 @@ Implemented features:
 
 2. Strips unnecessary whitespaces from the code.
 
+3. Strips comments from code.
+
 ## Example
 
 Run against files test.php and include.php in the same directory given as:

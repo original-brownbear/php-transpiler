@@ -19,6 +19,6 @@ class SourceSanitizationFilter extends FileFilter
 
     public function depends()
     {
-        return ['IncludeStatementFilter'];
+        return ['IncludeStatementFilter', 'CommentRemovalFilter'];
     }
 }

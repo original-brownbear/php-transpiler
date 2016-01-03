@@ -3,12 +3,14 @@
 namespace PhpTranspiler\Framework\FileChecks;
 
 use PhpParser\Node\Expr\Include_;
-use PhpParser\PrettyPrinter\Standard;
 use PhpTranspiler\Framework\SourceFile;
 use PhpParser\PrettyPrinter;
+use PhpTranspiler\Framework\SourceWriter;
 
 class RequireCheck
 {
+    use SourceWriter;
+
     /** @var  SourceFile $sourceFile */
     private $sourceFile;
 
@@ -57,7 +59,7 @@ class RequireCheck
                 $res = array_merge($res, array_shift($fixes)->sourceTree());
                 $res = array_merge($res, array_shift($slices));
             }
-            $this->sourceFile->setStringContent((new Standard)->prettyPrintFile($res));
+            $this->sourceFile->setStringContent($this->nodesToSource($res));
         }
 
         return $this->sourceFile;
