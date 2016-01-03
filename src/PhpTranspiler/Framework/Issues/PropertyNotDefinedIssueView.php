@@ -21,7 +21,7 @@ class PropertyNotDefinedIssueView
 
         return "- <error> Undefined property " . $data['property']->name()
                . ' is accessed by method ' . $data['method']->name() .
-               'of class ' . $data['class']->name()
+               ' of class ' . $data['class']->name()
                . "</error>\n";
     }
 }
