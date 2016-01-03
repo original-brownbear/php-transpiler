@@ -19,8 +19,11 @@ class PropertyDefinitions extends ClassAnalysis
                  * @var Property $node
                  * @var string   $name
                  */
-                $name              = isset($node->props['name']) ? $node->props['name'] : $node->props[0]->name;
-                $properties[$name] = new PhpClassProperty($name, $node->type);
+                $name              = isset($node->props['name'])
+                    ? (isset($node->props['name']->name) ? $node->props['name']->name : $node->props['name'])
+                    : $node->props[0]->name;
+                $properties[$name] = new PhpClassProperty($name,
+                    $node->type);
             }
 
         }

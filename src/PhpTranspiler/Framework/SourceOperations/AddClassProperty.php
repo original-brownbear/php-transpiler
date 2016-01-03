@@ -1,6 +1,7 @@
 <?php
 namespace PhpTranspiler\Framework\SourceOperations;
 
+use PhpParser\Node\Stmt\PropertyProperty;
 use PhpTranspiler\Framework\SourceElements\ClassAnalysis;
 use PhpTranspiler\Framework\SourceElements\PhpClass;
 use PhpTranspiler\Framework\SourceElements\PhpClassProperty;
@@ -28,9 +29,9 @@ class AddClassProperty extends ClassAnalysis
      */
     public function adjustedClass()
     {
-        $node          = $this->class->asNode();
-        $node->stmts[] = new Property($this->property->accessLevel(),
-            array('name' => $this->property->name()));
+        $node = $this->class->asNode();
+        array_unshift($node->stmts, new Property($this->property->accessLevel(),
+            array('name' => new PropertyProperty($this->property->name()))));
 
         return new PhpClass($node);
     }
