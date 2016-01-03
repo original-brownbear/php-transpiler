@@ -10,8 +10,8 @@ class SourceFile extends SourceLocation
      */
     public function isPhpFile()
     {
-        return $this->sourceFactory
-            ->isValid($this->stringContent());
+        return preg_match('#(\.php|\.inc)$#', $this->url) === 1
+               && $this->sourceFactory->isValid($this->stringContent());
     }
 
     /**

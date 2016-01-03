@@ -1,7 +1,6 @@
 <?php
 use org\bovigo\vfs\vfsStreamDirectory;
 use \PhpTranspiler\Framework\SourceDir;
-use \PhpTranspiler\Framework\PhpSourceFactory;
 use org\bovigo\vfs\vfsStream;
 
 class SourceDirTest extends PhpTranspilerTestCase

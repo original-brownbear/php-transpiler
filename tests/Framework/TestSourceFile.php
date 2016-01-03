@@ -22,6 +22,8 @@ class SourceFileTest extends PhpTranspilerTestCase
         $this->assertFalse($this->getSubject($file->url())->isPhpFile());
         $file = vfsStream::newFile('bar.php')->setContent("<?php\necho 'test';")->at($vfs);
         $this->assertTrue($this->getSubject($file->url())->isPhpFile());
+        $file = vfsStream::newFile('bar.txt')->setContent("<?php\necho 'test';")->at($vfs);
+        $this->assertFalse($this->getSubject($file->url())->isPhpFile());
     }
 
     private function getSubject($path)
