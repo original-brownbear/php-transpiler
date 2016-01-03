@@ -1,10 +1,10 @@
 <?php
 namespace PhpTranspiler\Framework\Issues;
 
-use PhpTranspiler\Framework\SourceElements\PhpClass;
 use PhpTranspiler\Framework\Base\NamedElement;
-use PhpTranspiler\Framework\SourceElements\PhpMethod;
+use PhpTranspiler\Framework\SourceElements\PhpClass;
 use PhpTranspiler\Framework\SourceElements\PhpClassProperty;
+use PhpTranspiler\Framework\SourceElements\PhpMethod;
 use PhpTranspiler\Framework\SourceOperations\AddClassProperty;
 
 class PropertyNotDefinedIssue

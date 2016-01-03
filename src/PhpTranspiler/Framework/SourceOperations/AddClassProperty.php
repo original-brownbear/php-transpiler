@@ -1,11 +1,11 @@
 <?php
 namespace PhpTranspiler\Framework\SourceOperations;
 
+use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\PropertyProperty;
 use PhpTranspiler\Framework\SourceElements\ClassAnalysis;
 use PhpTranspiler\Framework\SourceElements\PhpClass;
 use PhpTranspiler\Framework\SourceElements\PhpClassProperty;
-use PhpParser\Node\Stmt\Property;
 
 class AddClassProperty extends ClassAnalysis
 {

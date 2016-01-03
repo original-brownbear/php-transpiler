@@ -3,8 +3,8 @@
 namespace PhpTranspiler\Framework\FileChecks;
 
 use PhpParser\Node\Expr\Include_;
-use PhpTranspiler\Framework\SourceFile;
 use PhpParser\PrettyPrinter;
+use PhpTranspiler\Framework\SourceFile;
 use PhpTranspiler\Framework\SourceWriter;
 
 class RequireCheck

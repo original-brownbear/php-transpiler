@@ -1,8 +1,8 @@
 <?php
 namespace PhpTranspiler\Framework\Filters\File;
 
-use PhpTranspiler\Framework\SourceFactory;
 use PhpTranspiler\Framework\PhpSourceSanitization;
+use PhpTranspiler\Framework\SourceFactory;
 
 class SourceSanitizationFilter extends FileFilter
 {

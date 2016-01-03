@@ -2,10 +2,10 @@
 
 namespace PhpTranspiler\Framework\Actions;
 
+use PhpTranspiler\Framework\Filters;
 use PhpTranspiler\Framework\Filters\File\FileFilter;
 use PhpTranspiler\Framework\SourceDir;
 use PhpTranspiler\Framework\SourceFactory;
-use PhpTranspiler\Framework\Filters;
 use ReflectionClass;
 
 class Transpile

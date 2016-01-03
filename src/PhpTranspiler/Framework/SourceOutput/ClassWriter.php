@@ -1,10 +1,9 @@
 <?php
 namespace PhpTranspiler\Framework\SourceOutput;
 
-use PhpParser\PrettyPrinter\Standard;
-
-use PhpTranspiler\Framework\SourceElements\ClassAnalysis;
 use PhpParser\Parser;
+use PhpParser\PrettyPrinter\Standard;
+use PhpTranspiler\Framework\SourceElements\ClassAnalysis;
 use PhpTranspiler\Framework\SourceWriter;
 
 class ClassWriter extends ClassAnalysis

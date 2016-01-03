@@ -1,8 +1,8 @@
 <?php
 namespace PhpTranspiler\Framework\SourceElements;
 
-use PhpTranspiler\Framework\Base\NamedElement;
 use PhpParser\Node;
+use PhpTranspiler\Framework\Base\NamedElement;
 
 abstract class PhpElement implements NamedElement
 {
