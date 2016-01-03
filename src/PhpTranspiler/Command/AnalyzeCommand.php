@@ -2,7 +2,6 @@
 namespace PhpTranspiler\Command;
 
 require_once dirname(__DIR__) . '/constants.php';
-use PhpTranspiler\Framework\SourceDir;
 use PhpTranspiler\Framework\SourceDirView;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -31,10 +30,8 @@ class AnalyzeCommand extends PhpTranspilerCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('<info>PHP Transpiler</info>');
-        $path = $input->getArgument('path');
+        $path = $this->getInputPath($input);
         $output->writeln('<info>Analyzing ' . $path . '</info>');
-        $sourceFactory = $this->sourceFactory();
-        $sourceDir     = new SourceDir($sourceFactory, $path);
-        $output->writeln('<info>' . (new SourceDirView($sourceDir))->render() . '</info>');
+        $output->writeln('<info>' . (new SourceDirView($this->sourceDir($path)))->render() . '</info>');
     }
 }

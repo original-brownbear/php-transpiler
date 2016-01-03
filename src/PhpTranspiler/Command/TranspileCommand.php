@@ -36,12 +36,12 @@ class TranspileCommand extends PhpTranspilerCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('<info>PHP Transpiler</info>');
-        $inputPath  = $input->getArgument('path');
+        $inputPath  = $this->getInputPath($input);
         $outputPath = $input->getArgument('output');
         $output->writeln('<info>Transpiling ' . $inputPath . ' to ' . $outputPath . '</info>');
-        $sourceFactory = $this->sourceFactory();
-        $sourceDir     = new SourceDir($sourceFactory, $inputPath);
+        $sourceDir = $this->sourceDir($inputPath);
         $sourceDir->copyTo($outputPath);
+        $sourceFactory = $this->sourceFactory();
         (new Transpile(new SourceDir($sourceFactory, $outputPath)))->run();
         $output->writeln('<info>' . (new SourceDirView($sourceDir))->render() . '</info>');
         $output->writeln('<info>Now Fixing Issues</info>');
